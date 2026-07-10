@@ -1,0 +1,152 @@
+[
+  {
+    "id": 1,
+    "question": "What is the Constitution?",
+    "answer": "The supreme law of the land.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 2,
+    "question": "What is the Oath of Allegiance?",
+    "answer": "A promise to be loyal to the United States.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 3,
+    "question": "What is a civilian?",
+    "answer": "A person who is not in the military.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 4,
+    "question": "What does 'deport' mean?",
+    "answer": "To force a person to leave a country.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 5,
+    "question": "What are illegal drugs or narcotics?",
+    "answer": "Substances that are against the law, like heroin or cocaine.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 6,
+    "question": "What does it mean to 'claim' to be a U.S. citizen?",
+    "answer": "To state or say that you are a U.S. citizen when you are not.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 7,
+    "question": "What is a non-resident?",
+    "answer": "Someone who does not live in the United States.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 8,
+    "question": "What is an 'alien'?",
+    "answer": "A person who is not a U.S. citizen.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 9,
+    "question": "What is a 'habitual drunkard'?",
+    "answer": "Someone who drinks too much alcohol regularly.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 10,
+    "question": "What is 'perjury'?",
+    "answer": "Lying under oath; not telling the truth in court or on an application.",
+    "category": "Vocabulary"
+  },
+  {
+    "id": 11,
+    "question": "Have you ever claimed to be a U.S. citizen?",
+    "answer": "No. (Important: Always tell the truth based on your history.)",
+    "category": "Character Questions"
+  },
+  {
+    "id": 12,
+    "question": "Have you ever voted in any federal, state, or local election in the United States?",
+    "answer": "No. (If you are not a citizen, you cannot vote.)",
+    "category": "Character Questions"
+  },
+  {
+    "id": 13,
+    "question": "Do you now have, or did you ever have, a hereditary title or an order of nobility in any foreign country?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 14,
+    "question": "Have you ever been declared legally incompetent, or been confined to a mental institution?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 15,
+    "question": "Do you owe any overdue federal, state, or local taxes?",
+    "answer": "No. (You must be up-to-date with your taxes.)",
+    "category": "Character Questions"
+  },
+  {
+    "id": 16,
+    "question": "Have you ever been a member of, or in any way associated (either directly or indirectly) with: The Communist Party?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 17,
+    "question": "Have you ever been a member of, or in any way associated with: A terrorist organization?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 18,
+    "question": "Have you ever advocated (either directly or indirectly) the overthrow of any government by force or violence?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 19,
+    "question": "Have you ever been arrested, cited, or detained by any law enforcement officer for any reason?",
+    "answer": "No. (Disclose it even if it was a traffic ticket.)",
+    "category": "Character Questions"
+  },
+  {
+    "id": 20,
+    "question": "Have you ever been a habitual drunkard, or practiced polygamy?",
+    "answer": "No.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 21,
+    "question": "Do you support the Constitution and form of government of the United States?",
+    "answer": "Yes, I do.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 22,
+    "question": "Do you understand the full Oath of Allegiance to the United States?",
+    "answer": "Yes, I do.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 23,
+    "question": "Are you willing to take the full Oath of Allegiance to the United States?",
+    "answer": "Yes, I am.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 24,
+    "question": "If the law requires it, are you willing to bear arms on behalf of the United States?",
+    "answer": "Yes, I am.",
+    "category": "Character Questions"
+  },
+  {
+    "id": 25,
+    "question": "If the law requires it, are you willing to perform noncombatant services in the U.S. Armed Forces?",
+    "answer": "Yes, I am.",
+    "category": "Character Questions"
+  }
+]

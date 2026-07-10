@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "section": "Greeting & Small Talk",
+    "text": "Officer: Good morning! I am Officer Miller. I'll be conducting your interview today.\nApplicant: Good morning, Officer. I'm happy to be here.\nOfficer: How was your commute to our San Jose office today?\nApplicant: The 101 was a bit busy, but I live nearby in the Berryessa area, so it wasn't too bad.\nOfficer: That's good to hear. Have you been waiting long?\nApplicant: No, only about 15 minutes.\nOfficer: Great. Before we begin, may I see your green card, passport, and interview notice?\nApplicant: Yes, here they are. I also brought my driver's license.\nOfficer: Thank you. Please follow me."
+  },
+  {
+    "id": 2,
+    "section": "The Oath",
+    "text": "Officer: Before we start, I need to place you under oath. Please stand and raise your right hand.\nDo you swear to tell the truth, the whole truth, and nothing but the truth?\nApplicant (standing): Yes, I do.\nOfficer: You may be seated. Do you understand what it means to tell the truth?\nApplicant: Yes, it means I will not lie during this interview."
+  },
+  {
+    "id": 3,
+    "section": "General Information",
+    "text": "Officer: What is your full legal name?\nApplicant: Anh Thi Nguyen.\nOfficer: Do you have any other names or nicknames?\nApplicant: No, just Anh Nguyen.\nOfficer: Would you like to change your name today?\nApplicant: No, I want to keep my current name.\nOfficer: What is your date of birth?\nApplicant: May 12th, 1992.\nOfficer: Where were you born?\nApplicant: I was born in Ho Chi Minh City, Vietnam."
+  },
+  {
+    "id": 4,
+    "section": "Residency & Contact",
+    "text": "Officer: What is your current home address?\nApplicant: 1425 Senter Road, San Jose, California 95112.\nOfficer: How long have you lived there?\nApplicant: I have lived there for 4 years.\nOfficer: What is your phone number?\nApplicant: (408) 555-0123."
+  },
+  {
+    "id": 5,
+    "section": "Employment & Education",
+    "text": "Officer: What is your current occupation?\nApplicant: I work as a Customer Support Specialist for a tech company in Sunnyvale.\nOfficer: How long have you worked there?\nApplicant: Since 2020.\nOfficer: Have you ever worked anywhere else in the last 5 years?\nApplicant: Yes, I worked part-time at a family-owned restaurant in Little Saigon before my current job."
+  },
+  {
+    "id": 6,
+    "section": "Marital & Family",
+    "text": "Officer: What is your current marital status?\nApplicant: I am single. I have never been married.\nOfficer: Do you have any children?\nApplicant: No, I don't have any children."
+  },
+  {
+    "id": 7,
+    "section": "Travel History",
+    "text": "Officer: Have you taken any trips outside the United States in the last 5 years?\nApplicant: Yes, I took one trip back to Vietnam.\nOfficer: When was that trip?\nApplicant: I went in December 2023 for 3 weeks to visit my parents for the Lunar New Year (Tết).\nOfficer: Did any of your trips last 6 months or longer?\nApplicant: No, it was only 21 days."
+  },
+  {
+    "id": 8,
+    "section": "Moral Character",
+    "text": "Officer: Have you ever been a member of the Communist Party?\nApplicant: No, never.\nOfficer: Have you ever been arrested or convicted of a crime?\nApplicant: No.\nOfficer: Do you support the Constitution and form of government of the United States?\nApplicant: Yes, I do.\nOfficer: Are you willing to take the full Oath of Allegiance to the United States?\nApplicant: Yes, I am very willing."
+  },
+  {
+    "id": 9,
+    "section": "Motivations",
+    "text": "Officer: Why do you want to become a United States citizen?\nApplicant: I want to live in a free country, have the right to vote, and build a better future here in California."
+  }
+]

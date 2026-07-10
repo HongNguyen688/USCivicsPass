@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "title": "1. Inconsistencies with N-400 Form",
+    "description": "During the interview, everything you say must match the information on your N-400 form exactly. If they notice a discrepancy, they may suspect you of lying, which is a major red flag for USCIS. Study your application until you know it by heart."
+  },
+  {
+    "id": 2,
+    "title": "2. Failing to define \"Yes or No\" terms",
+    "description": "When an officer asks yes or no questions, they aren’t just looking for simple answers. Often, they will ask you to define terms like 'genocide', 'torture', or 'totalitarianism' to test your English skills and understanding."
+  },
+  {
+    "id": 3,
+    "title": "3. Answering too quickly",
+    "description": "It’s better to pause and think before speaking. If you don’t understand a question, ask the officer to repeat it or speak more slowly. Officers are required to rephrase or repeat questions if you ask."
+  },
+  {
+    "id": 4,
+    "title": "4. Hiding arrests or criminal records",
+    "description": "If you have any infractions, even minor ones, you must disclose them. USCIS cross-checks your file with other agencies. If they discover a lie, you could face denial or even legal trouble. Honesty and rehabilitation are valued."
+  },
+  {
+    "id": 5,
+    "title": "5. Forgetting your evidence",
+    "description": "Bring all documents that support your claims. If you forget something, the officer may issue a Request for Evidence (RFE), which significantly delays your case. Double-check your folder before leaving."
+  },
+  {
+    "id": 6,
+    "title": "6. Ignoring the \"Small Talk\"",
+    "description": "Your interview starts the moment the officer greets you. Even casual questions like 'How are you today?' are evaluation of your English comprehension and fluency. Be prepared for casual conversation."
+  },
+  {
+    "id": 7,
+    "title": "7. Failing to report recent changes",
+    "description": "Your file must be accurate. If you have moved, changed jobs, traveled abroad, or legally changed your name since filing your N-400, inform the officer immediately."
+  },
+  {
+    "id": 8,
+    "title": "8. Showing up late",
+    "description": "Being late is poorly viewed and can be seen as a lack of respect. Aim to arrive at the building 20-30 minutes before your appointment to pass through security and check-in without rushing."
+  },
+  {
+    "id": 9,
+    "title": "9. Dressing inappropriately",
+    "description": "First impressions matter. Avoid wearing jeans or T-shirts. Business casual is your best bet—think as if you are going to a job interview to show respect for the process."
+  },
+  {
+    "id": 10,
+    "title": "10. Leaving your phone on",
+    "description": "Turn your phone off before entering the interview room. Notifications are highly distracting. Note that recording the interview or taking photos is strictly prohibited."
+  }
+]
