@@ -1,0 +1,95 @@
+diff --git a/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeech.java b/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeech.java
+index 3ad7683..cd0b6ab 100644
+--- a/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeech.java
++++ b/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeech.java
+@@ -30,7 +30,15 @@ public class TextToSpeech implements android.speech.tts.TextToSpeech.OnInitListe
+ 
+     TextToSpeech(Context context) {
+         this.context = context;
++        initTts();
++    }
++
++    // Android can silently drop the TTS engine's service binding (e.g. after the app is
++    // backgrounded for a while). When that happens every call fails with "not bound to TTS
++    // engine" and the original tts instance never recovers on its own, so we recreate it here.
++    private void initTts() {
+         try {
++            initializationStatus = -1;
+             tts = new android.speech.tts.TextToSpeech(context, this);
+             tts.setOnUtteranceProgressListener(
+                 new UtteranceProgressListener() {
+@@ -69,9 +77,23 @@ public class TextToSpeech implements android.speech.tts.TextToSpeech.OnInitListe
+         }
+     }
+ 
++    private Runnable pendingAction = null;
++
++    // Re-creates the native TextToSpeech engine and runs onReady once it finishes
++    // (re)initializing. Used to recover from a silently dropped service connection.
++    public void reconnect(Runnable onReady) {
++        pendingAction = onReady;
++        initTts();
++    }
++
+     @Override
+     public void onInit(int status) {
+         this.initializationStatus = status;
++        if (status == android.speech.tts.TextToSpeech.SUCCESS && pendingAction != null) {
++            Runnable action = pendingAction;
++            pendingAction = null;
++            action.run();
++        }
+     }
+ 
+     public void speak(
+diff --git a/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeechPlugin.java b/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeechPlugin.java
+index 62eaf01..2f16764 100644
+--- a/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeechPlugin.java
++++ b/node_modules/@capacitor-community/text-to-speech/android/src/main/java/com/getcapacitor/community/tts/TextToSpeechPlugin.java
+@@ -26,8 +26,18 @@ public class TextToSpeechPlugin extends Plugin {
+ 
+     @PluginMethod
+     public void speak(PluginCall call) {
++        speak(call, false);
++    }
++
++    // isRetry: true once we've already tried recovering a dropped TTS engine connection once
++    // for this call, so a second failure is treated as a real error instead of retried forever.
++    private void speak(PluginCall call, boolean isRetry) {
+         boolean isAvailable = implementation.isAvailable();
+         if (!isAvailable) {
++            if (!isRetry) {
++                implementation.reconnect(() -> speak(call, true));
++                return;
++            }
+             call.unavailable("Not yet initialized or not available on this device.");
+             return;
+         }
+@@ -42,10 +52,18 @@ public class TextToSpeechPlugin extends Plugin {
+ 
+         boolean isLanguageSupported = implementation.isLanguageSupported(lang);
+         if (!isLanguageSupported) {
++            // A dropped service connection also makes isLanguageSupported() return false, so
++            // this may be a false negative rather than a genuinely unsupported language.
++            // Reconnect the engine and retry once before giving up.
++            if (!isRetry) {
++                implementation.reconnect(() -> speak(call, true));
++                return;
++            }
+             call.reject(ERROR_UNSUPPORTED_LANGUAGE);
+             return;
+         }
+ 
++        String text2 = text;
+         SpeakResultCallback resultCallback = new SpeakResultCallback() {
+             @Override
+             public void onDone() {
+@@ -62,7 +80,7 @@ public class TextToSpeechPlugin extends Plugin {
+                 JSObject ret = new JSObject();
+                 ret.put("start", start);
+                 ret.put("end", end);
+-                String spokenWord = text.substring(start, end);
++                String spokenWord = text2.substring(start, end);
+                 ret.put("spokenWord", spokenWord);
+                 notifyListeners("onRangeStart", ret);
+             }

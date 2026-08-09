@@ -1,0 +1,4 @@
+module TextToSpeechPlugin {
+header "TextToSpeechPlugin-Swift.h"
+export *
+}

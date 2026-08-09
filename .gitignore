@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Android signing
+*.keystore
+*.jks
+keystore.properties
+
+# Local Netlify folder
+.netlify
+
+# Build artifacts / caches
+ios/build/
+scripts/__pycache__/

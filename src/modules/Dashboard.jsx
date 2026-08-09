@@ -111,14 +111,12 @@ const Dashboard = ({
           variant="primary"
         />
 
-        {/* Card 8: External link to check USCIS case status.
-            window.open() opens a URL in a new browser tab.
-            '_blank' means "open in a new tab".                    */}
+        {/* Card 8: Opens the in-app workbook PDF viewer. */}
         <DashboardCard
-          title="Case Status"
-          desc="Quickly check your USCIS case status and estimated processing time."
-          icon="📋"
-          onClick={() => window.open('https://egov.uscis.gov/', '_blank')}
+          title="Workbook"
+          desc="View the full USCivicsPass Workbook to study and print offline."
+          icon={<img src="/CitizenshipCover-small.png" alt="USCivicsPass Workbook cover" className="card-icon-img" />}
+          onClick={() => setView('workbook')}
           variant="primary"
         />
 

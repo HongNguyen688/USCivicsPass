@@ -64,6 +64,10 @@ import WritingPractice from './modules/WritingPractice';
 import VocabularyModule from './modules/VocabularyModule';
 import N400Prep from './modules/N400Prep';
 
+// Lazy-loaded: pulls in pdf.js (~1MB), so it's split into its own chunk
+// and only fetched when the user actually opens the Workbook viewer.
+const WorkbookViewer = React.lazy(() => import('./modules/WorkbookViewer'));
+
 // Global CSS styles
 import './index.css';
 
@@ -337,6 +341,8 @@ const App = () => {
   // On startup, find the highest-quality browser voice available.
   // Different browsers offer different voice options — we pick the best one.
   useEffect(() => {
+    if (Capacitor.isNativePlatform()) return; // Native apps use the TextToSpeech plugin instead
+
     const selectBestVoice = () => {
       const voices = window.speechSynthesis.getVoices();
       if (!voices.length) return; // Voices not loaded yet, try again when they are
@@ -791,6 +797,13 @@ const App = () => {
             showAnswer={showAnswer}
             speakText={speakText}
           />
+        )}
+
+        {/* WORKBOOK: In-app PDF viewer for the USCivicsPass Workbook */}
+        {view === 'workbook' && (
+          <React.Suspense fallback={<p className="workbook-status">Loading workbook…</p>}>
+            <WorkbookViewer goToHome={goToHome} />
+          </React.Suspense>
         )}
 
       </main>
