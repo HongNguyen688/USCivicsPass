@@ -30,7 +30,9 @@ Navigation is purely state-driven: modules call handlers like `goToHome()` / `go
 
 ### Components vs Modules
 
-`src/components/` holds shared UI primitives (`Header`, `Footer`, `DashboardCard`, `SelectionCard`) used across views. `src/modules/` holds full-screen view components (`CivicsStudy`, `Flashcards`, `PracticeQuiz`, `ReadingPractice`, `WritingPractice`, `VocabularyModule`, `N400Prep`, `Dashboard`, `SelectionScreen`).
+`src/components/` holds shared UI primitives (`Header`, `Footer`, `DashboardCard`, `SelectionCard`) used across views. `src/modules/` holds full-screen view components (`CivicsStudy`, `Flashcards`, `PracticeQuiz`, `ReadingPractice`, `WritingPractice`, `VocabularyModule`, `N400Prep`, `Dashboard`, `SelectionScreen`, `WorkbookViewer`).
+
+`WorkbookViewer` (view `'workbook'`) is `React.lazy`-loaded from `App.jsx` since it pulls in `pdfjs-dist` (~1MB) — only fetched when the user opens it. It renders `public/USCivicsPass-Workbook.pdf` page-by-page onto `<canvas>` elements (not an `<iframe>`, since Android's WebView has no built-in PDF viewer) with lazy per-page rendering via `IntersectionObserver`.
 
 Much of the quiz, vocabulary, reading, and writing state actually lives in `App.jsx` (e.g. `quizState`, `vocabState`, `currentQuestionIndex`, `readingIndex`, `writingIndex`) and is passed down as props alongside callbacks. Purely ephemeral UI state (e.g. card flip animation) lives locally in the module.
 
@@ -84,12 +86,44 @@ node scripts/generate-icons.mjs
 
 This converts the SVG → `resources/icon.png` (1024×1024) and `resources/splash.png` (2732×2732), then runs `@capacitor/assets generate` to produce every required size for iOS and Android.
 
+### Live remote URL (how iOS stays in sync with the web app)
+
+`capacitor.config.ts` sets `server.url` to `https://passuscivics.com`, so the native shell loads the **live deployed web app** rather than the bundled copy in `dist/`. Any change deployed to Netlify appears in already-installed apps on next launch — no rebuild, no App Store release. There is by construction no separate "iOS design": both surfaces render the same deployed CSS.
+
+Consequences to keep in mind:
+
+- **The app requires an internet connection.** With no network the WebView has nothing to load. Anything that must work offline has to move to a bundled build.
+- **Web deploys are now app releases.** Shipping a broken deploy breaks the installed iOS app immediately, with no review step in between.
+- `limitsNavigationsToAppBoundDomains: false` is required for iOS to navigate to a non-bundled origin.
+
+To build a self-contained, offline-capable app instead, set `CAP_LOCAL=1` — this drops the `server` block so Capacitor falls back to the bundled `dist/`:
+
+```bash
+CAP_LOCAL=1 npm run build && CAP_LOCAL=1 npx cap sync ios
+```
+
 ### Key Capacitor files
 
-- `capacitor.config.ts` — appId (`com.uscivicspass.app`), appName, webDir
+- `capacitor.config.ts` — appId (`com.uscivicspass.app`), appName, webDir, `server.url` (see above)
 - `vite.config.js` — computes `base` from env: `VITE_BASE_PATH` (see `.env.example`) if set, else `'./'` when `CAPACITOR` env is set (so native builds load assets from `file://`), else `'/'` for normal web deploys
 - `ios/` — Xcode project (do not manually edit generated files)
 - `android/` — Android Studio project (do not manually edit generated files)
+
+### Patched dependencies
+
+`patches/@capacitor-community+text-to-speech+8.0.1.patch` is applied automatically via the `postinstall` script (`patch-package`) after every `npm install`. If that plugin needs further changes, edit the copy under `node_modules/`, then regenerate the patch with `npx patch-package @capacitor-community/text-to-speech`.
+
+## Companion Print Workbook
+
+`book/` contains a print-on-demand companion workbook (`USCivicsPass-Workbook.pdf`, served from `public/` and shown in-app by `WorkbookViewer`; `USCivicsPass-Workbook-Manuscript.docx`). Regenerate the manuscript from the live question/vocabulary data with:
+
+```bash
+python3 scripts/generate_manuscript.py   # requires: pip3 install python-docx
+```
+
+## Deployment
+
+The site deploys to Netlify (`netlify.toml`): build command `npm run build`, publish dir `dist`, with a catch-all SPA redirect to `index.html`.
 
 ## Related Docs
 
