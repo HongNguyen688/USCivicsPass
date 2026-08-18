@@ -48,7 +48,16 @@ const Dashboard = ({
       {/* Grid of 8 module cards */}
       <div className="grid">
 
-        {/* Card 1: Browse all civics questions */}
+        {/* Card 1: N-400 application prep */}
+        <DashboardCard
+          title="N-400 Questions"
+          desc="Preparation for common N-400 application questions."
+          icon="🛂"
+          onClick={() => setView('n400')}  // This one uses setView directly instead of a named function
+          variant="primary"
+        />
+
+        {/* Card 2: Browse all civics questions */}
         <DashboardCard
           title={`${totalQuestions} Civics Questions`}
           desc={`Learn all ${totalQuestions} questions and answers with audio support.`}
@@ -57,7 +66,7 @@ const Dashboard = ({
           variant="primary"
         />
 
-        {/* Card 2: Take a practice test */}
+        {/* Card 3: Take a practice test */}
         <DashboardCard
           title="Civics Practice Test"
           desc={`Simulate the actual interview. ${testVersion === '128' ? '20 questions, 12 to pass.' : '10 questions, 6 to pass.'}`}
@@ -66,7 +75,7 @@ const Dashboard = ({
           variant="primary"
         />
 
-        {/* Card 3: Reading practice sentences */}
+        {/* Card 4: Reading practice sentences */}
         <DashboardCard
           title="Reading Practice"
           desc="Practice reading sentences required for the test."
@@ -75,21 +84,12 @@ const Dashboard = ({
           variant="primary"
         />
 
-        {/* Card 4: Writing / dictation practice */}
+        {/* Card 5: Writing / dictation practice */}
         <DashboardCard
           title="Writing Practice"
           desc="Listen and write sentences to practice dictation."
           icon="✍️"
           onClick={goToWriting}
-          variant="primary"
-        />
-
-        {/* Card 5: N-400 application prep */}
-        <DashboardCard
-          title="N-400 Questions"
-          desc="Preparation for common N-400 application questions."
-          icon="🛂"
-          onClick={() => setView('n400')}  // This one uses setView directly instead of a named function
           variant="primary"
         />
 

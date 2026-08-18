@@ -58,8 +58,12 @@ const WritingPractice = ({
   // .trim() removes leading/trailing spaces before checking length
   const hasTypedSomething = writingInput.trim().length > 0;
 
+  // How many sentences this session will actually serve. Count off writingOrder,
+  // not writingSentences — the order array is what drives navigation.
+  const totalSentences = writingOrder.length;
+
   // Are we on the last sentence?
-  const isLastSentence = writingIndex === writingSentences.length - 1;
+  const isLastSentence = writingIndex === totalSentences - 1;
 
   // Helper: go to the next sentence and reset the input/check state
   const goToNextSentence = () => {
@@ -122,7 +126,7 @@ const WritingPractice = ({
         <div className="card-top-info">
           <span className="card-category-badge">WRITING TEST</span>
           <span className="question-number">
-            Sentence {writingIndex + 1} / {writingSentences.length}
+            Sentence {writingIndex + 1} / {totalSentences}
           </span>
         </div>
 

@@ -307,6 +307,31 @@ const App = () => {
     }
   }, [isRandom, view, totalQuestions]); // Run this whenever isRandom, view, or totalQuestions changes
 
+  // Same idea for Reading Practice: toggling Sequential/Random inside the
+  // module only flips the flag, so rebuild the order array here or the
+  // sentences keep coming out in the order picked when the screen opened.
+  useEffect(() => {
+    if (view === 'reading') {
+      const order = Array.from({ length: readingSentences.length }, (_, i) => i);
+      if (isReadingRandom) order.sort(() => Math.random() - 0.5);
+      setReadingOrder(order);
+      setReadingIndex(0);
+    }
+  }, [isReadingRandom, view]);
+
+  // Same for Writing Practice. Reshuffling starts a fresh sentence, so the
+  // typed answer and the revealed-answer flag have to be cleared too.
+  useEffect(() => {
+    if (view === 'writing') {
+      const order = Array.from({ length: writingSentences.length }, (_, i) => i);
+      if (isWritingRandom) order.sort(() => Math.random() - 0.5);
+      setWritingOrder(order);
+      setWritingIndex(0);
+      setWritingInput('');
+      setIsWritingChecked(false);
+    }
+  }, [isWritingRandom, view]);
+
   // Scroll back to the top whenever the screen changes. Without this, navigating
   // to a module from a scrolled-down position (e.g. tapping a dashboard card that's
   // below the fold on mobile) leaves the new screen scrolled too, so its header and
@@ -335,8 +360,11 @@ const App = () => {
       window.speechSynthesis.cancel();
       currentUtteranceRef.current = null;
     }
-    // Dependencies: run this effect whenever any of these values change
-  }, [currentQuestionIndex, readingIndex, writingIndex, view, n400Category, quizState?.currentIndex, vocabState?.currentIndex]);
+    // Dependencies: run this effect whenever any of these values change.
+    // readingOrder/writingOrder are in here because reshuffling changes the
+    // sentence without moving the index — toggling Random while sitting on
+    // sentence 1 would otherwise leave the old sentence speaking over the new one.
+  }, [currentQuestionIndex, readingIndex, writingIndex, readingOrder, writingOrder, view, n400Category, quizState?.currentIndex, vocabState?.currentIndex]);
 
   // On startup, find the highest-quality browser voice available.
   // Different browsers offer different voice options — we pick the best one.

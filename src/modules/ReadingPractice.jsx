@@ -49,8 +49,13 @@ const ReadingPractice = ({
   // Are we on the very first sentence? (used to disable the Previous button)
   const isFirstSentence = readingIndex === 0;
 
+  // How many sentences this session will actually serve. Count off readingOrder,
+  // not readingSentences — the order array is what drives navigation, so counting
+  // the raw JSON would desync the counter if the two ever differ in length.
+  const totalSentences = readingOrder.length;
+
   // Are we on the very last sentence? (used to change the Next button to "Learn Again")
-  const isLastSentence = readingIndex === readingSentences.length - 1;
+  const isLastSentence = readingIndex === totalSentences - 1;
 
   return (
     <div className="study-module reading-module fade-in">
@@ -100,7 +105,7 @@ const ReadingPractice = ({
         <div className="card-top-info">
           <span className="card-category-badge">READING TEST</span>
           <span className="question-number">
-            Sentence {readingIndex + 1} / {readingSentences.length}
+            Sentence {readingIndex + 1} / {totalSentences}
           </span>
         </div>
 
@@ -143,7 +148,7 @@ const ReadingPractice = ({
         ) : (
           <button
             className="btn-primary"
-            onClick={() => setReadingIndex(prev => Math.min(readingSentences.length - 1, prev + 1))}
+            onClick={() => setReadingIndex(prev => Math.min(totalSentences - 1, prev + 1))}
           >Next Sentence</button>
         )}
 
