@@ -5,6 +5,13 @@
 // offering three actions: back to the Dashboard, support the
 // project via Buy Me a Coffee, and download the PDF.
 //
+// The top bar is STICKY. The PDF lives in its own scroll container
+// that is ~130,000px tall, so on a touch device a swipe almost
+// always lands inside it: the inner container eats the gesture and
+// the outer page never scrolls back up. Without a pinned top bar
+// the "Back to Menu" button scrolls away and the reader is stuck
+// in the workbook with no way back to the Dashboard.
+//
 // Pages are rendered with pdf.js onto <canvas> elements instead of
 // an <iframe>. Plain iframes rely on the browser having a built-in
 // PDF viewer — Android's WebView (used by the Capacitor native app)
@@ -41,6 +48,29 @@ const WorkbookViewer = ({ goToHome }) => {
 
   const [pages, setPages] = useState([]); // [{ num, aspectRatio }]
   const [status, setStatus] = useState('loading'); // 'loading' | 'ready' | 'error'
+
+  // The app's own <Header> is `position: sticky; top: 0`, and its height
+  // changes with the breakpoint and the iOS safe-area inset. Measure it
+  // instead of hardcoding a number, so our sticky bar pins directly below
+  // it rather than underneath or floating away from it.
+  const [stickyTop, setStickyTop] = useState(0);
+
+  useEffect(() => {
+    const appHeader = document.querySelector('.main-header');
+    if (!appHeader) return;
+
+    const measure = () => setStickyTop(appHeader.getBoundingClientRect().height);
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(appHeader);
+    window.addEventListener('resize', measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, []);
 
   const downloadWorkbook = () => {
     const link = document.createElement('a');
@@ -119,11 +149,18 @@ const WorkbookViewer = ({ goToHome }) => {
   }, [status, pages]);
 
   return (
-    <div className="study-module workbook-module fade-in">
+    <div
+      className="study-module workbook-module fade-in"
+      style={{ '--workbook-sticky-top': `${stickyTop}px` }}
+    >
 
-      {/* Top bar: Back to Menu / Buy Me a Coffee / Download */}
-      <div className="module-header">
-        <button className="back-btn" onClick={goToHome}>← Back to Menu</button>
+      {/* Top bar: Back to Menu / Buy Me a Coffee / Download.
+          Sticky, so it stays reachable no matter how far the reader has
+          scrolled inside the PDF container below. */}
+      <div className="module-header workbook-topbar">
+        <button className="back-btn workbook-back-btn" onClick={goToHome}>
+          ← Back to Menu
+        </button>
         <h2>USCivicsPass Workbook</h2>
         <div className="workbook-actions">
           <a
@@ -158,6 +195,14 @@ const WorkbookViewer = ({ goToHome }) => {
             style={{ aspectRatio }}
           />
         ))}
+      </div>
+
+      {/* Explicit exit at the end of the reader — the expected next step
+          after finishing the workbook is to go practice the civics test. */}
+      <div className="workbook-footer-actions">
+        <button className="btn-primary" onClick={goToHome}>
+          ← Back to Menu
+        </button>
       </div>
     </div>
   );

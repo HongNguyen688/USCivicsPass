@@ -938,9 +938,33 @@ nav {
   max-width: 1000px;
 }
 
+/* Pinned below the app's own sticky header (its measured height comes in
+   as --workbook-sticky-top from WorkbookViewer.jsx). The PDF sits in a very
+   tall inner scroll container, so on touch devices a swipe is almost always
+   captured by it and the outer page never scrolls back up — without this,
+   "Back to Menu" scrolls off and the reader has no way out of the workbook. */
 .workbook-module .module-header {
+  position: sticky;
+  top: var(--workbook-sticky-top, 0px);
+  z-index: 900;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px 15px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Comfortable touch target — the plain .back-btn is only ~15px tall. */
+.workbook-back-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
+  font-size: 1rem;
 }
 
 .workbook-actions {
@@ -954,14 +978,22 @@ nav {
   margin-bottom: 0;
 }
 
+.workbook-footer-actions {
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
 .workbook-pdf-frame {
   width: 100%;
   max-width: 900px;
-  height: 75vh;
+  height: 75dvh;
   margin: 0 auto;
   padding: 16px;
   border-radius: var(--radius);
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
   background: var(--bg-secondary, #f4f6fa);
 }
@@ -983,8 +1015,36 @@ nav {
 }
 
 @media (max-width: 600px) {
+  /* Keep the sticky bar to a single compact row so it doesn't eat the
+     screen: back button and title on top, actions beneath, both small. */
+  .workbook-module .module-header {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+
+  .workbook-module .module-header h2 {
+    font-size: 1.05rem;
+  }
+
+  .workbook-back-btn {
+    min-height: 40px;
+  }
+
+  .workbook-actions {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .workbook-actions .btn-coffee,
+  .workbook-actions .btn-primary {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.85rem;
+    text-align: center;
+  }
+
   .workbook-pdf-frame {
-    height: 70vh;
+    height: 65dvh;
     padding: 10px;
   }
 }
