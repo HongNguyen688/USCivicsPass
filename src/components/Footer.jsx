@@ -4,13 +4,14 @@
 // This is the simplest component in the app.
 // It just shows copyright text at the very bottom of every page.
 //
-// It receives NO props and has NO state — it never changes.
-// This is called a "static" or "presentational" component.
+// PROPS:
+//   isNativeApp → true when running inside the iOS/Android shell, which hides
+//                 the App Store link (you are already in the app).
 // ============================================================
 
 import React, { useState } from 'react';
 
-const Footer = () => {
+const Footer = ({ isNativeApp }) => {
   // Ephemeral UI state: shows a brief "Link copied!" confirmation on the
   // Share button when the Web Share API isn't available (desktop browsers).
   const [copied, setCopied] = useState(false);
@@ -56,6 +57,19 @@ const Footer = () => {
           >
             📕 Buy Paper Book
           </a>
+
+          {/* iOS app — hidden inside the native shell, which already loads this
+              same site, so an installed app would otherwise advertise itself. */}
+          {!isNativeApp && (
+            <a
+              href="https://apps.apple.com/us/app/uscivicspass/id6789735809"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-appstore"
+            >
+              📱 Get the iOS App
+            </a>
+          )}
 
           {/* Feedback link — opens the user's email client with a pre-filled subject */}
           <a

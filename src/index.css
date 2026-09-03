@@ -910,7 +910,8 @@ nav {
 }
 
 .footer-actions .btn-coffee,
-.footer-actions .btn-book {
+.footer-actions .btn-book,
+.footer-actions .btn-appstore {
   margin-bottom: 0;
 }
 
@@ -957,6 +958,29 @@ nav {
 .btn-book:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(35, 47, 62, 0.35);
+}
+
+/* App Store link — same pill geometry as the coffee and book buttons so the
+   footer row reads as one group. Apple's near-black keeps it distinct. */
+.btn-appstore {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-appstore:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
 }
 
 /* Workbook PDF Viewer */

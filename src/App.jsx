@@ -1159,8 +1159,11 @@ const App = () => {
 
       </main>
 
-      {/* THE FOOTER: The bottom bar with copyright info. Always visible. */}
-      <Footer />
+      {/* THE FOOTER: The bottom bar with copyright info. Always visible.
+          isNativeApp hides the "Get the iOS App" link inside the native shell —
+          that shell loads this same deployed site, so without it the installed
+          app would show a button telling you to install the app. */}
+      <Footer isNativeApp={Capacitor.isNativePlatform()} />
     </div>
   );
 };
