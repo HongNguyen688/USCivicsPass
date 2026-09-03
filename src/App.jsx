@@ -72,32 +72,108 @@ const WorkbookViewer = React.lazy(() => import('./modules/WorkbookViewer'));
 import './index.css';
 
 
-// ── MOCK INTERVIEW VOICE CASTING ─────────────────────────────
-// Neither the browser nor the Capacitor plugin reports whether a voice sounds
-// male or female, so we match on the known English voice names shipped by
-// macOS/iOS (Alex, Samantha…), Chrome (Google UK English Male/Female), and
-// Windows (Microsoft David, Zira…). A voice we don't recognise is left out
-// rather than guessed at — speakDialogue then separates the two speakers by
-// pitch instead, which works with any voice.
-const MALE_VOICES =
-  /\b(alex|daniel|fred|tom|aaron|gordon|rishi|arthur|oliver|male|david|mark|guy|christopher|eric|roger|steffan|james|ryan|brian|matthew|joey)\b/i;
-const FEMALE_VOICES =
-  /\b(samantha|victoria|karen|moira|tessa|fiona|allison|ava|susan|zoe|nicky|female|zira|aria|jenny|michelle|ana|emma|amy|joanna|kendra|salli|serena|catherine)\b/i;
+// ── VOICE SELECTION ──────────────────────────────────────────
+// macOS/iOS ship a large "Novelty" category alongside the real voices, and they
+// are ordinary entries in getVoices(). Some are obvious (Zarvox, Boing), but
+// Apple's newer ones have perfectly ordinary first names — Flo, Eddy, Reed,
+// Rocko, Sandy, Shelley — and sound like cartoon characters. Without this list
+// one of those can win on score and read the interview aloud.
+const NOVELTY_VOICES =
+  /^(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|eddy|flo|fred|good news|grandma|grandpa|hysterical|jester|junior|kathy|organ|princess|ralph|reed|rocko|sandy|shelley|superstar|trinoids|whisper|wobble|zarvox)\b/i;
+
+// Real, human-sounding English voices, best first. Order matters: it is what
+// decides the cast on a device where several voices are otherwise equal, which
+// is the common case on a Mac or iPhone with no extra voices downloaded.
+// Alex and Samantha are Apple's long-standing full-quality voices; the later
+// names are the Windows, Edge, and Amazon equivalents.
+const MALE_VOICE_NAMES = [
+  'alex', 'tom', 'aaron', 'daniel', 'oliver', 'arthur', 'guy', 'christopher',
+  'matthew', 'brian', 'ryan', 'david', 'mark', 'eric', 'roger', 'steffan',
+  'joey', 'evan', 'nathan', 'james', 'george', 'thomas', 'gordon', 'rishi',
+];
+const FEMALE_VOICE_NAMES = [
+  'samantha', 'ava', 'allison', 'susan', 'nicky', 'victoria', 'serena',
+  'aria', 'jenny', 'michelle', 'emma', 'amy', 'joanna', 'kendra', 'salli',
+  'karen', 'moira', 'fiona', 'tessa', 'catherine', 'martha', 'zira', 'ana',
+];
+
+// Built from the lists above so there is a single source of truth. The bare
+// words "male"/"female" catch Google's named-by-gender voices; \bmale\b cannot
+// match inside "female" because there is no word boundary there. "Google US
+// English" is Chrome's default neural voice and reads as female, but carries
+// no name to match on, so it is listed explicitly.
+const MALE_VOICES = new RegExp(`\\b(${MALE_VOICE_NAMES.join('|')}|male)\\b`, 'i');
+const FEMALE_VOICES = new RegExp(
+  `\\b(${FEMALE_VOICE_NAMES.join('|')}|female)\\b|google us english`, 'i'
+);
+
+// Where a voice sits in the lists above, as a bounded bonus. Capped well below
+// the neural-engine bonuses so a downloaded Enhanced voice still outranks a
+// merely well-regarded standard one.
+const preferenceBonus = (voice, names) => {
+  const name = voice.name.toLowerCase();
+  const index = names.findIndex((candidate) => new RegExp(`\\b${candidate}\\b`).test(name));
+  return index === -1 ? 0 : Math.max(0, 20 - index);
+};
+
+// How human a voice sounds, roughly. The modern neural engines (Apple Premium
+// and Enhanced, Google's web voices, Microsoft's "Online (Natural)") are worth
+// far more than any locale match: a neural en-GB voice sounds much more human
+// than a 1990s formant-synthesis en-US one, so quality is scored before locale.
+const voiceQuality = (voice) => {
+  if (!voice || !/^en/i.test(voice.lang)) return -1;
+  if (NOVELTY_VOICES.test(voice.name)) return -1;
+
+  const id = `${voice.name} ${voice.voiceURI || ''}`.toLowerCase();
+
+  // Every real English voice starts well above zero. Only the joke voices and
+  // non-English ones score below it, so a device that ships nothing but Apple's
+  // low-quality "compact" voices still ends up with a usable voice rather than
+  // none at all — they simply rank last.
+  let score = 30;
+
+  if (/premium/.test(id)) score += 60;
+  else if (/neural|natural/.test(id)) score += 55;
+  else if (/enhanced/.test(id)) score += 50;
+
+  if (/siri/.test(id)) score += 40;
+  if (/^google /i.test(voice.name)) score += 45;        // Google's neural voices
+  if (/microsoft .*online/.test(id)) score += 45;       // Edge's neural voices
+  if (/compact/.test(id)) score -= 25;                  // Apple's low-quality tier
+
+  if (voice.lang === 'en-US') score += 10;
+  else score += 4;
+  if (!voice.localService) score += 5;                  // Network voices are neural
+
+  // Break ties on how well-regarded the voice is, not on device list order.
+  score += Math.max(
+    preferenceBonus(voice, MALE_VOICE_NAMES),
+    preferenceBonus(voice, FEMALE_VOICE_NAMES)
+  );
+
+  return score;
+};
 
 // The Mock Interview is played back slower than the rest of the app: it is a
 // listening exercise, and the default study speed runs ahead of most learners.
 // Multiplying (rather than fixing) the rate keeps the app-wide speed control
 // meaningful — the interview simply stays slower than everything else.
-const MOCK_INTERVIEW_RATE_FACTOR = 0.8;
-const MOCK_INTERVIEW_MIN_RATE = 0.5;
+//
+// It is deliberately only a little slower: dropping a synthetic voice far below
+// its natural rate is itself a big part of what makes one sound robotic, so the
+// unhurried feel comes mostly from ANSWER_PAUSE_MS rather than from the rate.
+const MOCK_INTERVIEW_RATE_FACTOR = 0.9;
+const MOCK_INTERVIEW_MIN_RATE = 0.6;
 
 // Silence left after each officer question so the learner can answer out loud
 // before hearing the model answer.
 const ANSWER_PAUSE_MS = 3000;
 
-// Fallback pitches, used only when we could not cast two distinct voices.
-const OFFICER_PITCH = 0.85;
-const APPLICANT_PITCH = 1.15;
+// Fallback pitches, used only when the device has no second usable voice.
+// Kept subtle — a wide pitch shift is exactly what makes a voice sound
+// synthetic, so this only nudges the two speakers apart.
+const OFFICER_PITCH = 0.94;
+const APPLICANT_PITCH = 1.06;
 
 // ============================================================
 // THE MAIN APP COMPONENT
@@ -425,36 +501,25 @@ const App = () => {
       const voices = window.speechSynthesis.getVoices();
       if (!voices.length) return; // Voices not loaded yet, try again when they are
 
-      // Score each voice — higher is better
-      const scoreVoice = (voice) => {
-        if (!/^en/i.test(voice.lang)) return 0;  // Must be English
-        if (/enhanced/i.test(voice.name) && voice.lang === 'en-US') return 10; // Best: Apple Enhanced
-        if (/Aria|Jenny|Michelle|Guy/i.test(voice.name) && /natural/i.test(voice.name)) return 9;
-        if (voice.name === 'Google US English') return 8;
-        if (/natural|neural|enhanced/i.test(voice.name) && /^en/i.test(voice.lang)) return 7;
-        if (voice.lang === 'en-US' && voice.localService) return 4; // Local voices are more reliable
-        if (voice.lang === 'en-US') return 3;
-        return 1; // Any other English voice
-      };
+      // Best overall voice for everything outside the Mock Interview.
+      // voiceQuality returns -1 for the joke voices and for anything non-English,
+      // so those can never win here.
+      const usable = voices.filter((v) => voiceQuality(v) >= 0);
+      preferredVoiceRef.current = usable.length
+        ? usable.reduce((best, current) =>
+            voiceQuality(best) >= voiceQuality(current) ? best : current
+          )
+        : null;
 
-      // .reduce() walks through the voices array and keeps the one with the highest score.
-      // Think of it like: "start with voices[0], and keep whichever is better as you go"
-      preferredVoiceRef.current = voices.reduce((best, current) =>
-        scoreVoice(best) >= scoreVoice(current) ? best : current
-      );
-
-      // Pick a man's voice and a woman's voice for the Mock Interview.
-      // The Web Speech API never reports a voice's gender, so the only thing
-      // we can go on is the name. These are the common English voices shipped
-      // by macOS/iOS, Chrome, and Windows; anything unrecognised is skipped
-      // rather than guessed at.
+      // Cast the Mock Interview's two speakers. Among the voices whose name
+      // says male or female, take the most human-sounding one rather than the
+      // first — that is the difference between a neural voice and a robotic
+      // one that merely happens to appear earlier in the device's list.
       const pickGendered = (namePattern) => {
-        const matches = voices.filter(
-          (v) => /^en/i.test(v.lang) && namePattern.test(v.name)
-        );
+        const matches = usable.filter((v) => namePattern.test(v.name));
         if (!matches.length) return null;
         return matches.reduce((best, current) =>
-          scoreVoice(best) >= scoreVoice(current) ? best : current
+          voiceQuality(best) >= voiceQuality(current) ? best : current
         );
       };
 
@@ -481,14 +546,22 @@ const App = () => {
 
     TextToSpeech.getSupportedVoices()
       .then(({ voices }) => {
-        const indexOfFirst = (namePattern) => {
-          const i = voices.findIndex(
-            (v) => /^en/i.test(v.lang) && namePattern.test(v.name)
-          );
-          return i === -1 ? null : i;
+        // Rank, don't take the first match. iOS lists its low-quality "compact"
+        // voices alongside the Enhanced and Premium ones, and the compact entry
+        // usually comes first — picking it is what makes the interview sound
+        // like a machine on a phone.
+        const bestIndex = (namePattern) => {
+          let bestI = null;
+          let bestScore = 0;
+          voices.forEach((v, i) => {
+            if (!namePattern.test(v.name)) return;
+            const score = voiceQuality(v);
+            if (score > bestScore) { bestScore = score; bestI = i; }
+          });
+          return bestI;
         };
-        nativeOfficerVoiceRef.current = indexOfFirst(MALE_VOICES);
-        nativeApplicantVoiceRef.current = indexOfFirst(FEMALE_VOICES);
+        nativeOfficerVoiceRef.current = bestIndex(MALE_VOICES);
+        nativeApplicantVoiceRef.current = bestIndex(FEMALE_VOICES);
       })
       .catch(() => {}); // No voice list — speakDialogue falls back to pitch
   }, []);
