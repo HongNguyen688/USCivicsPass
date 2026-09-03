@@ -72,6 +72,33 @@ const WorkbookViewer = React.lazy(() => import('./modules/WorkbookViewer'));
 import './index.css';
 
 
+// ── MOCK INTERVIEW VOICE CASTING ─────────────────────────────
+// Neither the browser nor the Capacitor plugin reports whether a voice sounds
+// male or female, so we match on the known English voice names shipped by
+// macOS/iOS (Alex, Samantha…), Chrome (Google UK English Male/Female), and
+// Windows (Microsoft David, Zira…). A voice we don't recognise is left out
+// rather than guessed at — speakDialogue then separates the two speakers by
+// pitch instead, which works with any voice.
+const MALE_VOICES =
+  /\b(alex|daniel|fred|tom|aaron|gordon|rishi|arthur|oliver|male|david|mark|guy|christopher|eric|roger|steffan|james|ryan|brian|matthew|joey)\b/i;
+const FEMALE_VOICES =
+  /\b(samantha|victoria|karen|moira|tessa|fiona|allison|ava|susan|zoe|nicky|female|zira|aria|jenny|michelle|ana|emma|amy|joanna|kendra|salli|serena|catherine)\b/i;
+
+// The Mock Interview is played back slower than the rest of the app: it is a
+// listening exercise, and the default study speed runs ahead of most learners.
+// Multiplying (rather than fixing) the rate keeps the app-wide speed control
+// meaningful — the interview simply stays slower than everything else.
+const MOCK_INTERVIEW_RATE_FACTOR = 0.8;
+const MOCK_INTERVIEW_MIN_RATE = 0.5;
+
+// Silence left after each officer question so the learner can answer out loud
+// before hearing the model answer.
+const ANSWER_PAUSE_MS = 3000;
+
+// Fallback pitches, used only when we could not cast two distinct voices.
+const OFFICER_PITCH = 0.85;
+const APPLICANT_PITCH = 1.15;
+
 // ============================================================
 // THE MAIN APP COMPONENT
 // ============================================================
@@ -165,6 +192,24 @@ const App = () => {
 
   // A ref to the best available browser voice (chosen once on startup)
   const preferredVoiceRef = useRef(null);
+
+  // Two more voices, picked once on startup, so the Mock Interview can be
+  // acted out by two people instead of read by one: a man for the officer
+  // and a woman for the applicant. Either can stay null if the browser has
+  // no clearly gendered English voice — speakDialogue falls back to pitch.
+  const officerVoiceRef = useRef(null);
+  const applicantVoiceRef = useRef(null);
+
+  // Native (Capacitor) TTS picks voices by index into getSupportedVoices(),
+  // not by object, so the native equivalents are stored separately.
+  const nativeOfficerVoiceRef = useRef(null);
+  const nativeApplicantVoiceRef = useRef(null);
+
+  // Every run of the Mock Interview gets an id. The playback loop is async and
+  // sits through 3-second silences, so it checks this after each await: if the
+  // id has moved on (user hit stop, switched tabs, left the screen), it exits
+  // instead of talking over whatever is on screen now.
+  const dialogueRunIdRef = useRef(0);
 
   // ==========================================================
   // SECTION 4: READING & WRITING STATE
@@ -352,6 +397,11 @@ const App = () => {
   // to a different question or a different screen.
   // This prevents old audio from continuing while new content is shown.
   useEffect(() => {
+    // Also retires any in-flight Mock Interview. Cancelling speech alone is not
+    // enough: that loop is async and may be sitting in a 3-second pause, so it
+    // needs the run id bumped or it would resume talking on the next screen.
+    dialogueRunIdRef.current += 1;
+
     if (Capacitor.isNativePlatform()) {
       // Native iOS/Android: use the Capacitor TTS plugin's stop method
       TextToSpeech.stop().catch(() => {}); // .catch(() => {}) silently ignores errors
@@ -392,6 +442,24 @@ const App = () => {
       preferredVoiceRef.current = voices.reduce((best, current) =>
         scoreVoice(best) >= scoreVoice(current) ? best : current
       );
+
+      // Pick a man's voice and a woman's voice for the Mock Interview.
+      // The Web Speech API never reports a voice's gender, so the only thing
+      // we can go on is the name. These are the common English voices shipped
+      // by macOS/iOS, Chrome, and Windows; anything unrecognised is skipped
+      // rather than guessed at.
+      const pickGendered = (namePattern) => {
+        const matches = voices.filter(
+          (v) => /^en/i.test(v.lang) && namePattern.test(v.name)
+        );
+        if (!matches.length) return null;
+        return matches.reduce((best, current) =>
+          scoreVoice(best) >= scoreVoice(current) ? best : current
+        );
+      };
+
+      officerVoiceRef.current = pickGendered(MALE_VOICES);
+      applicantVoiceRef.current = pickGendered(FEMALE_VOICES);
     };
 
     selectBestVoice();
@@ -404,6 +472,26 @@ const App = () => {
     // We remove the listener to avoid memory leaks.
     return () => { window.speechSynthesis.onvoiceschanged = null; };
   }, []); // Empty array [] means "run this effect only ONCE when the app first loads"
+
+  // The native TTS plugin selects a voice by its index in getSupportedVoices(),
+  // so the Mock Interview's two-voice casting has to be resolved separately on
+  // iOS/Android. Same name-matching idea as the browser version above.
+  useEffect(() => {
+    if (!Capacitor.isNativePlatform()) return;
+
+    TextToSpeech.getSupportedVoices()
+      .then(({ voices }) => {
+        const indexOfFirst = (namePattern) => {
+          const i = voices.findIndex(
+            (v) => /^en/i.test(v.lang) && namePattern.test(v.name)
+          );
+          return i === -1 ? null : i;
+        };
+        nativeOfficerVoiceRef.current = indexOfFirst(MALE_VOICES);
+        nativeApplicantVoiceRef.current = indexOfFirst(FEMALE_VOICES);
+      })
+      .catch(() => {}); // No voice list — speakDialogue falls back to pitch
+  }, []);
 
 
   // ==========================================================
@@ -428,6 +516,159 @@ const App = () => {
 
     currentUtteranceRef.current = utterance;
     window.speechSynthesis.speak(utterance); // Start speaking!
+  };
+
+  // parseDialogue: Splits a Mock Interview script into speaking turns.
+  //
+  // The scripts are plain text, one line per turn, like:
+  //   "Officer: What is your full legal name?"
+  //   "Applicant: Anh Thi Nguyen."
+  //   "Applicant (standing): Yes, I do."
+  //
+  // A line with no "Officer:"/"Applicant:" prefix is a continuation of the
+  // previous speaker (the oath in section 2 wraps onto its own line), so it is
+  // appended rather than treated as a new turn. Stage directions in brackets
+  // are kept for the screen but never spoken.
+  const parseDialogue = (text) => {
+    const turns = [];
+
+    (text || '').split('\n').forEach((rawLine) => {
+      const line = rawLine.trim();
+      if (!line) return;
+
+      const match = line.match(/^(Officer|Applicant)\b([^:]*):\s*(.*)$/i);
+      if (match) {
+        turns.push({
+          speaker: match[1].toLowerCase(),      // 'officer' | 'applicant'
+          direction: match[2].trim(),           // e.g. "(standing)" — shown, not spoken
+          text: match[3].trim(),
+        });
+      } else if (turns.length) {
+        turns[turns.length - 1].text += ' ' + line;
+      } else {
+        turns.push({ speaker: 'officer', direction: '', text: line });
+      }
+    });
+
+    return turns.filter((turn) => turn.text);
+  };
+
+  // speakOne: Speaks a single line and resolves when it has finished.
+  // Everything else in the app fires speech and forgets about it; the Mock
+  // Interview needs to know when a line is over so the next one can follow.
+  const speakOne = (text, { rate, pitch, voice, nativeVoice }) =>
+    new Promise((resolve) => {
+      if (Capacitor.isNativePlatform()) {
+        TextToSpeech.speak({
+          text,
+          lang: 'en-US',
+          rate,
+          pitch,
+          volume: 1.0,
+          category: 'ambient',
+          ...(nativeVoice != null ? { voice: nativeVoice } : {}),
+        })
+          .then(resolve)
+          .catch(resolve); // A failed line should not stall the whole interview
+      } else {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = rate;
+        utterance.pitch = pitch;
+        utterance.volume = 1;
+        if (voice) utterance.voice = voice;
+
+        // onend fires normally; onerror fires if the line is cancelled or fails.
+        // Both must resolve, or a cancelled interview would hang forever.
+        utterance.onend = resolve;
+        utterance.onerror = resolve;
+
+        currentUtteranceRef.current = utterance;
+        window.speechSynthesis.speak(utterance);
+      }
+    });
+
+  // stopDialogue: Halts a running Mock Interview.
+  // Bumping the run id is what actually stops it — the loop checks the id after
+  // every await, so a run that is mid-pause exits at its next checkpoint.
+  const stopDialogue = () => {
+    dialogueRunIdRef.current += 1;
+    if (Capacitor.isNativePlatform()) {
+      TextToSpeech.stop().catch(() => {});
+    } else {
+      window.speechSynthesis.cancel();
+      currentUtteranceRef.current = null;
+    }
+  };
+
+  // speakDialogue: Plays a Mock Interview section as a two-person conversation.
+  //
+  //   - the officer is read by a man's voice, the applicant by a woman's
+  //   - it runs slower than the rest of the app (MOCK_INTERVIEW_RATE_FACTOR)
+  //   - after each officer question it goes quiet for ANSWER_PAUSE_MS so the
+  //     learner can answer out loud before the model answer is played
+  //
+  // onTurnChange(index, phase) reports progress so the screen can highlight the
+  // line being spoken; it is called with (null, null) when playback finishes.
+  const speakDialogue = async (text, onTurnChange) => {
+    stopDialogue();                                   // Clear any previous run
+    const runId = dialogueRunIdRef.current;           // Claim this run
+    const isCancelled = () => dialogueRunIdRef.current !== runId;
+
+    const turns = parseDialogue(text);
+    if (!turns.length) return;
+
+    const rate = Math.max(
+      MOCK_INTERVIEW_MIN_RATE,
+      audioSpeedRef.current * MOCK_INTERVIEW_RATE_FACTOR
+    );
+
+    // Only fall back to pitch when we could not cast two different voices,
+    // so good neural voices are left sounding natural wherever they exist.
+    const castByVoice = Capacitor.isNativePlatform()
+      ? nativeOfficerVoiceRef.current != null &&
+        nativeApplicantVoiceRef.current != null &&
+        nativeOfficerVoiceRef.current !== nativeApplicantVoiceRef.current
+      : Boolean(officerVoiceRef.current) &&
+        Boolean(applicantVoiceRef.current) &&
+        officerVoiceRef.current !== applicantVoiceRef.current;
+
+    const settingsFor = (speaker) => {
+      const isOfficer = speaker === 'officer';
+      return {
+        rate,
+        pitch: castByVoice ? 1.0 : (isOfficer ? OFFICER_PITCH : APPLICANT_PITCH),
+        voice: castByVoice
+          ? (isOfficer ? officerVoiceRef.current : applicantVoiceRef.current)
+          : preferredVoiceRef.current,
+        nativeVoice: castByVoice
+          ? (isOfficer ? nativeOfficerVoiceRef.current : nativeApplicantVoiceRef.current)
+          : null,
+      };
+    };
+
+    // A pause that can be cut short — checked against the run id on the way out.
+    const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    for (let i = 0; i < turns.length; i += 1) {
+      if (isCancelled()) return;
+
+      onTurnChange?.(i, 'speaking');
+      // Chrome sometimes leaves synthesis stuck in a paused state between lines.
+      if (!Capacitor.isNativePlatform()) window.speechSynthesis.resume();
+      await speakOne(turns[i].text, settingsFor(turns[i].speaker));
+      if (isCancelled()) return;
+
+      // Leave room to answer, but only where an answer actually follows —
+      // back-to-back officer lines run on, as they would in a real interview.
+      if (turns[i].speaker === 'officer' && turns[i + 1]?.speaker === 'applicant') {
+        onTurnChange?.(i, 'waiting');
+        await pause(ANSWER_PAUSE_MS);
+        if (isCancelled()) return;
+      }
+    }
+
+    onTurnChange?.(null, null);
   };
 
   // speakText: The main "speak this text" function used by all modules.
@@ -560,8 +801,14 @@ const App = () => {
 
   // goToVocabulary: Initialize and navigate to the vocabulary module.
   const goToVocabulary = () => {
+    // Section D of the workbook is a word bank — the official reading and writing
+    // test words, listed for spelling and recognition, with no definitions. Those
+    // entries are shown in Learn mode but cannot be asked "what does this mean?",
+    // so the Self-Test pool is only the words that carry a meaning.
+    const testableVocab = citizenshipVocabulary.filter(item => item.meaning);
+
     // Shuffle the vocab list so we see words in a different order each time
-    const shuffledVocab = [...citizenshipVocabulary].sort(() => 0.5 - Math.random());
+    const shuffledVocab = [...testableVocab].sort(() => 0.5 - Math.random());
 
     setVocabState({
       currentIndex: 0,
@@ -824,10 +1071,13 @@ const App = () => {
             currentQuestionIndex={currentQuestionIndex}
             showAnswer={showAnswer}
             speakText={speakText}
+            speakDialogue={speakDialogue}
+            stopDialogue={stopDialogue}
+            parseDialogue={parseDialogue}
           />
         )}
 
-        {/* WORKBOOK: In-app PDF viewer for the USCivicsPass Workbook */}
+        {/* WORKBOOK: In-app PDF viewer for the PassUSCivics Workbook */}
         {view === 'workbook' && (
           <React.Suspense fallback={<p className="workbook-status">Loading workbook…</p>}>
             <WorkbookViewer goToHome={goToHome} />

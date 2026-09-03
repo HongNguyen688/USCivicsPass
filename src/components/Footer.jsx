@@ -17,8 +17,8 @@ const Footer = () => {
 
   const handleShare = async () => {
     const shareData = {
-      title: 'USCivicsPass',
-      text: 'Prep for the U.S. citizenship test with USCivicsPass!',
+      title: 'PassUSCivics',
+      text: 'Prep for the U.S. citizenship test with PassUSCivics!',
       url: window.location.origin,
     };
 
@@ -47,9 +47,19 @@ const Footer = () => {
             ☕ Buy Me a Coffee
           </a>
 
+          {/* Print edition — the same workbook shown in-app, on Amazon */}
+          <a
+            href="https://a.co/d/0iGCC2Gs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-book"
+          >
+            📕 Buy Paper Book
+          </a>
+
           {/* Feedback link — opens the user's email client with a pre-filled subject */}
           <a
-            href="mailto:hongnguyentt99@gmail.com?subject=USCivicsPass%20Feedback"
+            href="mailto:hongnguyentt99@gmail.com?subject=PassUSCivics%20Feedback"
             className="btn-secondary"
           >
             💬 Feedback
@@ -62,7 +72,7 @@ const Footer = () => {
         </div>
 
         {/* &copy; is the HTML code for the © copyright symbol */}
-        <p>&copy; 2026 HN - USCivicsPass. All rights reserved.</p>
+        <p>&copy; 2026 HN - PassUSCivics. All rights reserved.</p>
       </div>
     </footer>
   );

@@ -2,7 +2,7 @@
 """Export src/data/*.json into a KDP-ready Word manuscript.
 
 Usage: python3 scripts/generate_manuscript.py
-Output: book/USCivicsPass-Workbook-Manuscript.docx
+Output: book/PassUSCivics-Workbook-Manuscript.docx
 Requires: pip3 install python-docx
 """
 import json
@@ -21,7 +21,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT, WD_ALIGN_VERTICAL, WD_ROW_HEIGHT
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "src", "data")
 OUT_DIR = os.path.join(ROOT, "book")
-OUT_FILE = os.path.join(OUT_DIR, "USCivicsPass-Workbook-Manuscript.docx")
+OUT_FILE = os.path.join(OUT_DIR, "PassUSCivics-Workbook-Manuscript.docx")
 
 
 def load(name):
@@ -133,7 +133,7 @@ def add_dedication_page(doc):
 
     doc.add_paragraph()
     note = doc.add_paragraph(
-        "I created the USCivicsPass app and this companion workbook to make "
+        "I created the PassUSCivics app and this companion workbook to make "
         "studying for the naturalization test less overwhelming. Every question, "
         "sentence, and word in this book was chosen to mirror the real interview "
         "experience as closely as possible, so there are no surprises on test "
@@ -405,7 +405,7 @@ def add_practice_tests_section(doc, title, pool, questions_per_set, num_sets, se
     doc.add_heading(title, level=1)
     intro = doc.add_paragraph(
         f"Each practice test below has {questions_per_set} multiple-choice questions, "
-        f"just like the USCivicsPass app quiz. Circle your answer, then check the "
+        f"just like the PassUSCivics app quiz. Circle your answer, then check the "
         f"Answer Key to see how you did."
     )
     intro.runs[0].italic = True
@@ -1073,7 +1073,7 @@ def add_final_words_section(doc):
         "U.S. citizenship. Whether you worked through every page or focused "
         "on just the sections you needed most, I hope it helped you walk "
         "into your interview with confidence.",
-        "This workbook is the companion to the USCivicsPass app — a free "
+        "This workbook is the companion to the PassUSCivics app — a free "
         "study tool with interactive quizzes, flashcards, audio "
         "pronunciation, and mock interview practice covering the same "
         "material in this book. You can keep practicing anytime, on any "

@@ -39,7 +39,7 @@
 //   speakText             → speak text aloud
 // ============================================================
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const N400Prep = ({
   goToHome,
@@ -52,8 +52,42 @@ const N400Prep = ({
   n400Data,
   currentQuestionIndex,
   showAnswer,
-  speakText
+  speakText,
+  speakDialogue,
+  stopDialogue,
+  parseDialogue
 }) => {
+
+  // Which Mock Interview section is playing, and where it has got to.
+  // Ephemeral playback state, so it lives here rather than in App.
+  //   turn  — index of the line being spoken
+  //   phase — 'speaking' while a line plays, 'waiting' during the silence
+  //           left for the learner to answer
+  const [playing, setPlaying] = useState({ sectionId: null, turn: null, phase: null });
+
+  // Leaving the Mock Interview tab stops the audio. App also cancels speech on
+  // tab change; this clears the button back to ▶ so the UI matches the silence.
+  useEffect(() => {
+    return () => {
+      stopDialogue?.();
+      setPlaying({ sectionId: null, turn: null, phase: null });
+    };
+  }, [n400Category, stopDialogue]);
+
+  // Play a section, or stop it if it is the one already playing.
+  const toggleSection = (item) => {
+    if (playing.sectionId === item.id) {
+      stopDialogue();
+      setPlaying({ sectionId: null, turn: null, phase: null });
+      return;
+    }
+    setPlaying({ sectionId: item.id, turn: 0, phase: 'speaking' });
+    speakDialogue(item.text, (turn, phase) => {
+      setPlaying(turn === null
+        ? { sectionId: null, turn: null, phase: null }
+        : { sectionId: item.id, turn, phase });
+    });
+  };
 
   // Shortcut to the current N-400 flashcard question
   const currentCard = n400Data[currentQuestionIndex];
@@ -108,16 +142,50 @@ const N400Prep = ({
         <div className="mock-interview-view fade-in">
           <div className="script-container">
             {/* .map() renders one "section card" for each item in the mockScript array */}
-            {mockScript.map((item) => (
-              <div key={item.id} className="script-section glass">
-                <div className="script-header">
-                  <h4 className="script-section-title">{item.section}</h4>
-                  {/* Audio button to hear this section spoken aloud */}
-                  <button className="audio-btn-small" onClick={() => speakText(item.text)}>🔊</button>
+            {mockScript.map((item) => {
+              const turns = parseDialogue(item.text);
+              const isPlaying = playing.sectionId === item.id;
+
+              return (
+                <div key={item.id} className="script-section glass">
+                  <div className="script-header">
+                    <h4 className="script-section-title">{item.section}</h4>
+                    {/* Plays the section as a conversation: a man's voice for the
+                        officer, a woman's for the applicant, with a pause after
+                        each question so you can answer out loud. */}
+                    <button
+                      className={`audio-btn-small ${isPlaying ? 'is-playing' : ''}`}
+                      onClick={() => toggleSection(item)}
+                      aria-label={isPlaying ? 'Stop the interview' : 'Play the interview'}
+                    >{isPlaying ? '⏹' : '▶'}</button>
+                  </div>
+
+                  <div className="script-text">
+                    {turns.map((turn, i) => {
+                      const active = isPlaying && playing.turn === i;
+                      return (
+                        <p
+                          key={i}
+                          className={`script-line script-line--${turn.speaker}` +
+                            (active ? ` is-active is-${playing.phase}` : '')}
+                        >
+                          <span className="script-speaker">
+                            {turn.speaker === 'officer' ? 'Officer' : 'Applicant'}
+                            {turn.direction && ` ${turn.direction}`}:
+                          </span>{' '}
+                          {turn.text}
+                        </p>
+                      );
+                    })}
+                  </div>
+
+                  {/* Shown during the silence after a question. */}
+                  {isPlaying && playing.phase === 'waiting' && (
+                    <p className="script-waiting">🎤 Your turn — answer out loud…</p>
+                  )}
                 </div>
-                <p className="script-text">{item.text}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -127,14 +195,41 @@ const N400Prep = ({
            Shows a grid of helpful tips for the citizenship interview.
            ============================================================ */
         <div className="tips-view fade-in">
-          <div className="tips-grid">
-            {tipsData.map((tip) => (
-              <div key={tip.id} className="tip-card glass">
-                <h3>{tip.title}</h3>
-                <p>{tip.description}</p>
-              </div>
+          <p className="tips-intro">
+            These tips come from how the real interview works. Read them before you start
+            studying. Then read them again the week before your interview.
+          </p>
+
+          {/* The tips mirror the workbook, which groups them into four sections
+              (interview, studying, interview day, mistakes). tipsData is a flat
+              array in book order, so we render each section in the order its
+              category first appears rather than hard-coding the section names. */}
+          {tipsData
+            .map((tip) => tip.category)
+            .filter((category, i, all) => all.indexOf(category) === i)
+            .map((category) => (
+              <section key={category} className="tips-section">
+                <h3 className="tips-section-title">{category}</h3>
+                <div className="tips-grid">
+                  {tipsData
+                    .filter((tip) => tip.category === category)
+                    .map((tip) => (
+                      <div key={tip.id} className="tip-card glass">
+                        <h3>{tip.title}</h3>
+                        <p>{tip.description}</p>
+                        {/* Only the "Bring these documents" tip carries a checklist */}
+                        {tip.items && (
+                          <ul className="tip-checklist">
+                            {tip.items.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              </section>
             ))}
-          </div>
         </div>
 
       ) : (

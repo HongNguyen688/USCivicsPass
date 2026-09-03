@@ -1,4 +1,4 @@
-# USCivicsPass 🇺🇸
+# PassUSCivics 🇺🇸
 
 A comprehensive, interactive web application designed to help applicants prepare for the United States Naturalization Interview and Test. Built with React and Vite, this platform provides all the tools needed to pass the civics, reading, writing, and N-400 interview portions.
 
@@ -58,4 +58,4 @@ npm run test -- --run
 - **Vitest** & **React Testing Library**
 
 ## 📄 License
-© 2026 HN - USCivicsPass. All rights reserved.
+© 2026 HN - PassUSCivics. All rights reserved.

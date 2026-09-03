@@ -41,9 +41,9 @@ This is a **React 19 + Vite** single-page application — a U.S. citizenship tes
 
 `App.jsx` is the single source of truth. It owns all global state and passes props + callbacks down to every module:
 
-- `view` — controls which screen is rendered (selection, home, questions, flashcards, quiz, reading, writing, vocabulary, n400)
+- `view` — controls which screen is rendered (selection, home, questions, flashcards, quiz, reading, writing, vocabulary, n400, workbook)
 - `testVersion` — `'100'` (2008 USCIS version) or `'128'` (2020 version); determines which questions JSON is loaded
-- `selectedLanguage` — drives subtitle display via `src/data/translations.js`
+- `selectedLanguage` — drives subtitle display via `src/data/translations.js` (Spanish `es`, Vietnamese `vi`, Korean `ko`, Chinese `zh`)
 - `audioSpeed` — controls playback rate for both Web Speech API (browser) and Capacitor TextToSpeech (native)
 
 Navigation is purely state-driven: modules call handlers like `goToHome()` / `goToSelection()` passed from App — there is no router library.
@@ -52,7 +52,7 @@ Navigation is purely state-driven: modules call handlers like `goToHome()` / `go
 
 `src/components/` holds shared UI primitives (`Header`, `Footer`, `DashboardCard`, `SelectionCard`) used across views. `src/modules/` holds full-screen view components (`CivicsStudy`, `Flashcards`, `PracticeQuiz`, `ReadingPractice`, `WritingPractice`, `VocabularyModule`, `N400Prep`, `Dashboard`, `SelectionScreen`, `WorkbookViewer`).
 
-`WorkbookViewer` (view `'workbook'`) is `React.lazy`-loaded from `App.jsx` since it pulls in `pdfjs-dist` (~1MB) — only fetched when the user opens it. It renders `public/USCivicsPass-Workbook.pdf` page-by-page onto `<canvas>` elements (not an `<iframe>`, since Android's WebView has no built-in PDF viewer) with lazy per-page rendering via `IntersectionObserver`.
+`WorkbookViewer` (view `'workbook'`) is `React.lazy`-loaded from `App.jsx` since it pulls in `pdfjs-dist` (~1MB) — only fetched when the user opens it. It renders `public/PassUSCivics-Workbook.pdf` page-by-page onto `<canvas>` elements (not an `<iframe>`, since Android's WebView has no built-in PDF viewer) with lazy per-page rendering via `IntersectionObserver`.
 
 Much of the quiz, vocabulary, reading, and writing state actually lives in `App.jsx` (e.g. `quizState`, `vocabState`, `currentQuestionIndex`, `readingIndex`, `writingIndex`) and is passed down as props alongside callbacks. Purely ephemeral UI state (e.g. card flip animation) lives locally in the module.
 
@@ -65,7 +65,7 @@ All question/sentence content is in `src/data/`:
 - `citizenshipVocabulary.json` — word + meaning pairs for the vocabulary module
 - `n400Questions.json` — N-400 form prep questions, categorized (Vocabulary, Character, etc.)
 - `mockInterview.json` / `interviewTips.json` — mock interview script and tips used by `N400Prep`
-- `translations.js` — flat keyed object of Spanish/other subtitles for civics questions
+- `translations.js` — object keyed by the **English question string** (not an id), each holding `{ es, vi, ko, zh }` → `{ q, a }`. A question whose text changes silently loses its subtitles — update both files together.
 
 ### Utility Functions (defined in App.jsx, passed as props)
 
@@ -139,11 +139,16 @@ CAP_LOCAL=1 npm run build && CAP_LOCAL=1 npx cap sync ios
 
 ## Companion Print Workbook
 
-`book/` contains a print-on-demand companion workbook (`USCivicsPass-Workbook.pdf`, served from `public/` and shown in-app by `WorkbookViewer`; `USCivicsPass-Workbook-Manuscript.docx`). Regenerate the manuscript from the live question/vocabulary data with:
+`book/` holds the print-on-demand companion workbook. Regenerate the manuscript from the live question/vocabulary data in `src/data/` with:
 
 ```bash
 python3 scripts/generate_manuscript.py   # requires: pip3 install python-docx
+# writes book/PassUSCivics-Workbook-Manuscript.docx (not committed — generated on demand)
 ```
+
+The PDF is exported from that manuscript by hand and lands in `book/` under whatever name the export used (currently `Final USCivicsPass Workbook 01092026.pdf`). **Nothing in the app reads `book/`** — the only copy the app serves is `public/PassUSCivics-Workbook.pdf`, at that exact filename. Publishing a new workbook means copying the `book/` export over `public/PassUSCivics-Workbook.pdf`; skip that and the in-app viewer keeps showing the old one.
+
+`WorkbookViewer` fetches it at the absolute path `/PassUSCivics-Workbook.pdf` ([WorkbookViewer.jsx:36](src/modules/WorkbookViewer.jsx#L36)), which is correct for the web deploy and for the live-URL native shell, but would not resolve under a `file://` `CAP_LOCAL=1` bundle.
 
 ## Deployment
 

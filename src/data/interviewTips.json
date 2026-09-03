@@ -1,52 +1,147 @@
 [
   {
     "id": 1,
-    "title": "1. Inconsistencies with N-400 Form",
-    "description": "During the interview, everything you say must match the information on your N-400 form exactly. If they notice a discrepancy, they may suspect you of lying, which is a major red flag for USCIS. Study your application until you know it by heart."
+    "category": "Tips for the Interview",
+    "title": "Your answers must match your N-400 form",
+    "description": "The officer has your Form N-400 on the desk. They will read your answers back to you and ask you to say if they are correct. Keep a copy of your form and read it again before you go, so you remember what you wrote. If something has changed — a new job, a new address, a new trip, a new child — tell the officer. Changes are normal. Hiding a change is the problem."
   },
   {
     "id": 2,
-    "title": "2. Failing to define \"Yes or No\" terms",
-    "description": "When an officer asks yes or no questions, they aren’t just looking for simple answers. Often, they will ask you to define terms like 'genocide', 'torture', or 'totalitarianism' to test your English skills and understanding."
+    "category": "Tips for the Interview",
+    "title": "The small talk is already part of the test",
+    "description": "There is no special moment when the English speaking test begins. From the first “Good morning, how are you today?” the officer is already listening to your English. So answer in full sentences, not just “Yes” or “Fine.” Say “Good morning. I am well, thank you.” This is why the Mock Interview starts with greeting and small talk. Practice that part out loud too — do not skip it."
   },
   {
     "id": 3,
-    "title": "3. Answering too quickly",
-    "description": "It’s better to pause and think before speaking. If you don’t understand a question, ask the officer to repeat it or speak more slowly. Officers are required to rephrase or repeat questions if you ask."
+    "category": "Tips for the Interview",
+    "title": "Answer only the question the officer asks",
+    "description": "If the officer asks “Have you ever been arrested?”, answer that question. Do not tell a long story. Short, true, and complete is best. Extra details only lead to extra questions."
   },
   {
     "id": 4,
-    "title": "4. Hiding arrests or criminal records",
-    "description": "If you have any infractions, even minor ones, you must disclose them. USCIS cross-checks your file with other agencies. If they discover a lie, you could face denial or even legal trouble. Honesty and rehabilitation are valued."
+    "category": "Tips for the Interview",
+    "title": "It is okay to ask the officer to repeat",
+    "description": "If you do not understand, say: “I'm sorry, could you repeat that, please?” or “Could you say that a different way, please?” This is allowed, and officers hear it every day. It is much better than guessing at a question you did not hear."
   },
   {
     "id": 5,
-    "title": "5. Forgetting your evidence",
-    "description": "Bring all documents that support your claims. If you forget something, the officer may issue a Request for Evidence (RFE), which significantly delays your case. Double-check your folder before leaving."
+    "category": "Tips for the Interview",
+    "title": "Always tell the truth",
+    "description": "You take an oath at the start of the interview. A wrong answer can be fixed. A lie cannot. Some “Yes” answers are not automatic problems — but hiding them is a serious problem. If you are worried about any answer on your form, talk to an immigration lawyer before your interview, not during it."
   },
   {
     "id": 6,
-    "title": "6. Ignoring the \"Small Talk\"",
-    "description": "Your interview starts the moment the officer greets you. Even casual questions like 'How are you today?' are evaluation of your English comprehension and fluency. Be prepared for casual conversation."
+    "category": "Tips for Studying",
+    "title": "Practice out loud, not in your head",
+    "description": "The officer scores how you speak. Reading quietly does not practice speaking. Say every answer out loud, even when you are alone. Record yourself on your phone and listen. You will hear what to fix."
   },
   {
     "id": 7,
-    "title": "7. Failing to report recent changes",
-    "description": "Your file must be accurate. If you have moved, changed jobs, traveled abroad, or legally changed your name since filing your N-400, inform the officer immediately."
+    "category": "Tips for Studying",
+    "title": "Learn the idea, not just the sounds",
+    "description": "Officers do not always use the same words as this book. “Who is the Commander in Chief?” and “Who is in charge of the military?” want the same answer: the President. If you understand the idea, you can answer any wording. If you only memorize sounds, one new word can stop you."
   },
   {
     "id": 8,
-    "title": "8. Showing up late",
-    "description": "Being late is poorly viewed and can be seen as a lack of respect. Aim to arrive at the building 20-30 minutes before your appointment to pass through security and check-in without rushing."
+    "category": "Tips for Studying",
+    "title": "One correct answer is enough",
+    "description": "Many answers give you several choices, separated by a semicolon (;). You do not need to say all of them. Pick the one that is easiest for you to remember and say, and use that same one every time."
   },
   {
     "id": 9,
-    "title": "9. Dressing inappropriately",
-    "description": "First impressions matter. Avoid wearing jeans or T-shirts. Business casual is your best bet—think as if you are going to a job interview to show respect for the process."
+    "category": "Tips for Studying",
+    "title": "A little every day beats a lot once a week",
+    "description": "Fifteen minutes each day will teach you more than three hours on Sunday. Use the 8-Week Study Plan in the workbook to keep going at a steady speed."
   },
   {
     "id": 10,
-    "title": "10. Leaving your phone on",
-    "description": "Turn your phone off before entering the interview room. Notifications are highly distracting. Note that recording the interview or taking photos is strictly prohibited."
+    "category": "Tips for Studying",
+    "title": "Check the current officials before you go",
+    "description": "Some answers change over time: the President, the Vice President, your state's U.S. Senators, your Representative, the Speaker of the House, the Chief Justice, and your Governor. Check them at uscis.gov/citizenship/testupdates a few days before your interview."
+  },
+  {
+    "id": 11,
+    "category": "Tips for Interview Day",
+    "title": "Bring these documents with you",
+    "description": "Pack your folder the night before and check it again at the door.",
+    "items": [
+      "Your interview appointment notice",
+      "Your green card (Permanent Resident Card)",
+      "All of your passports — current and expired",
+      "Your state ID or driver's license",
+      "Anything else your appointment notice asks you to bring (for example: marriage or divorce papers, tax records, or court papers)"
+    ]
+  },
+  {
+    "id": 12,
+    "category": "Tips for Interview Day",
+    "title": "Arrive early",
+    "description": "Plan for traffic and for parking. Try to arrive 30 minutes before your appointment time. Arriving calm helps your English."
+  },
+  {
+    "id": 13,
+    "category": "Tips for Interview Day",
+    "title": "Turn your phone off",
+    "description": "Do this before you go into the interview room, not after it rings."
+  },
+  {
+    "id": 14,
+    "category": "Tips for Interview Day",
+    "title": "Dress neatly",
+    "description": "Dress the way you would for a job interview. You do not need a suit. Clean and tidy is enough."
+  },
+  {
+    "id": 15,
+    "category": "Tips for Interview Day",
+    "title": "Speak slowly and clearly",
+    "description": "You do not need perfect English and you do not need to lose your accent. The officer needs to understand you — that is all. Slower is clearer."
+  },
+  {
+    "id": 16,
+    "category": "Tips for Interview Day",
+    "title": "If you do not pass everything the first time, you get a second chance",
+    "description": "USCIS will test you again on only the part you did not pass. They schedule it 60 to 90 days after your first interview. So one hard day is not the end. Keep practicing."
+  },
+  {
+    "id": 17,
+    "category": "Mistakes to Avoid",
+    "title": "Do not stay silent when you are confused",
+    "description": "Silence looks like you did not understand the English. Asking the officer to repeat shows that you did."
+  },
+  {
+    "id": 18,
+    "category": "Mistakes to Avoid",
+    "title": "Do not memorize words you do not understand",
+    "description": "If you learn only the sound of an answer, you will lose it as soon as the officer changes one word in the question."
+  },
+  {
+    "id": 19,
+    "category": "Mistakes to Avoid",
+    "title": "Do not forget your trips outside the United States",
+    "description": "The officer will ask about your travel. Before you go, write down every trip using the stamps and dates in your passport. Guessing at dates in the interview looks careless."
+  },
+  {
+    "id": 20,
+    "category": "Mistakes to Avoid",
+    "title": "Do not forget to report a new address",
+    "description": "If you moved after you filed Form N-400, you must tell USCIS — usually within 10 days of moving, using Form AR-11. Do not wait for the interview to mention it."
+  },
+  {
+    "id": 21,
+    "category": "Mistakes to Avoid",
+    "title": "Do not study only the civics questions",
+    "description": "Many people pass civics and then struggle with reading, writing, or speaking. Give time to the Reading and Writing practice as well, and read your practice sentences out loud."
+  },
+  {
+    "id": 22,
+    "category": "Mistakes to Avoid",
+    "title": "Do not rely on old answers you learned from a friend",
+    "description": "Test versions and officeholders change. Use the test version that matches your N-400 filing date, and check uscis.gov/citizenship before your interview."
+  },
+  {
+    "id": 23,
+    "category": "Mistakes to Avoid",
+    "title": "Remember: the officer is not trying to fail you",
+    "description": "They ask these questions every day, and they want you to succeed. Prepare well, tell the truth, and speak up when you need help."
   }
 ]

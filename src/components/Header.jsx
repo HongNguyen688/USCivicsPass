@@ -5,7 +5,7 @@
 // every single screen in the app.
 //
 // It shows:
-//   - The USCivicsPass logo (clicking it goes back to version selection)
+//   - The PassUSCivics logo (clicking it goes back to version selection)
 //   - Navigation buttons — BUT ONLY after the user has picked a
 //     test version AND is currently on the Dashboard (home) screen.
 //     We don't show the nav on other screens to keep it clean.
@@ -37,8 +37,8 @@ const Header = ({
             Clicking anywhere on the logo takes the user all the
             way back to the version selection screen.               */}
         <div className="logo" onClick={goToSelection}>
-          <img src="/logo.png" alt="USCivicsPass logo" className="logo-img" />
-          <h1>USCivicsPass</h1>
+          <img src="/logo.png" alt="PassUSCivics logo" className="logo-img" />
+          <h1>PassUSCivics</h1>
         </div>
 
         {/* ── NAVIGATION MENU ───────────────────────────────────

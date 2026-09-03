@@ -106,36 +106,87 @@ const VocabularyModule = ({
             )}
           </div>
 
-          {/* Grid of vocabulary cards, filtered by the search query.
-              .filter() keeps only words where the search term appears
-              in either the word itself or its meaning.
-              .toLowerCase() makes the search case-insensitive.       */}
-          <div className="glossary-grid">
-            {citizenshipVocabulary
-              .filter(vocabItem => {
-                const query = vocabState.searchQuery.toLowerCase();
-                return (
-                  vocabItem.word.toLowerCase().includes(query) ||
-                  vocabItem.meaning.toLowerCase().includes(query)
-                );
-              })
-              .map((item, idx) => (
-                <div key={idx} className="glossary-card glass fade-in">
-                  <div className="glossary-word-container">
-                    <h3 className="glossary-word">{item.word}</h3>
-                    <button className="audio-btn-small" onClick={() => speakText(item.word)}>🔊</button>
-                  </div>
-                  <p className="glossary-meaning">{item.meaning}</p>
-                  <button
-                    className="listen-meaning-btn"
-                    onClick={() => speakText(item.meaning)}
-                  >
-                    <span className="icon">🔊</span> Listen to meaning
-                  </button>
-                </div>
-              ))
+          {/* The glossary follows the workbook's Part 5 exactly: sections A-D in
+              book order, then the app's own extra words as section E. Sections
+              come out of the data in that order already, so we group rather than
+              sort — the JSON is the running order.
+
+              Section D is the official reading and writing word bank: words to
+              recognise and spell, with no definitions in the book. Those render
+              as compact chips grouped by their list, not as definition cards. */}
+          {(() => {
+            const query = vocabState.searchQuery.toLowerCase();
+            const matches = citizenshipVocabulary.filter(item =>
+              item.word.toLowerCase().includes(query) ||
+              item.meaning.toLowerCase().includes(query)
+            );
+
+            if (!matches.length) {
+              return <p className="glossary-empty">No words match “{vocabState.searchQuery}”.</p>;
             }
-          </div>
+
+            // Group into sections, keeping the order they appear in the data.
+            const sections = [];
+            matches.forEach(item => {
+              const name = item.section || 'Vocabulary';
+              let section = sections.find(s => s.name === name);
+              if (!section) sections.push((section = { name, items: [] }));
+              section.items.push(item);
+            });
+
+            return sections.map(section => (
+              <section key={section.name} className="glossary-section">
+                <h3 className="glossary-section-title">
+                  {section.name}
+                  <span className="glossary-count">{section.items.length}</span>
+                </h3>
+
+                {section.items[0].meaning ? (
+                  <div className="glossary-grid">
+                    {section.items.map((item, idx) => (
+                      <div key={idx} className="glossary-card glass fade-in">
+                        <div className="glossary-word-container">
+                          <h3 className="glossary-word">{item.word}</h3>
+                          <button className="audio-btn-small" onClick={() => speakText(item.word)}>🔊</button>
+                        </div>
+                        <p className="glossary-meaning">{item.meaning}</p>
+                        <button
+                          className="listen-meaning-btn"
+                          onClick={() => speakText(item.meaning)}
+                        >
+                          <span className="icon">🔊</span> Listen to meaning
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Word bank: chips grouped by the book's own list headings
+                     ("Reading test words — Holidays", and so on). */
+                  Object.entries(
+                    section.items.reduce((groups, item) => {
+                      const key = item.group || 'Words';
+                      (groups[key] = groups[key] || []).push(item);
+                      return groups;
+                    }, {})
+                  ).map(([groupName, words]) => (
+                    <div key={groupName} className="wordbank-group">
+                      <h4 className="wordbank-group-title">{groupName}</h4>
+                      <div className="wordbank-chips">
+                        {words.map((item, idx) => (
+                          <button
+                            key={idx}
+                            className="wordbank-chip"
+                            onClick={() => speakText(item.word)}
+                            title="Listen"
+                          >{item.word}</button>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                )}
+              </section>
+            ));
+          })()}
 
         </div>
 

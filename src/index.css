@@ -909,7 +909,8 @@ nav {
   margin-bottom: 16px;
 }
 
-.footer-actions .btn-coffee {
+.footer-actions .btn-coffee,
+.footer-actions .btn-book {
   margin-bottom: 0;
 }
 
@@ -917,6 +918,7 @@ nav {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  white-space: nowrap;
   margin-bottom: 16px;
   padding: 10px 20px;
   border-radius: 999px;
@@ -931,6 +933,30 @@ nav {
 .btn-coffee:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(255, 221, 0, 0.35);
+}
+
+/* Paper-book link — sits beside .btn-coffee in the footer and in the workbook
+   topbar. Same pill geometry as .btn-coffee so the pair reads as one group;
+   Amazon's dark/orange palette keeps it distinct from the yellow coffee pill. */
+.btn-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  margin-bottom: 16px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: #232f3e;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-book:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(35, 47, 62, 0.35);
 }
 
 /* Workbook PDF Viewer */
@@ -974,7 +1000,8 @@ nav {
   gap: 12px;
 }
 
-.workbook-actions .btn-coffee {
+.workbook-actions .btn-coffee,
+.workbook-actions .btn-book {
   margin-bottom: 0;
 }
 
@@ -1212,6 +1239,61 @@ nav {
   width: 100%;
 }
 
+/* Lead-in above the tip sections, matching the workbook's opening line. */
+.tips-intro {
+  max-width: 760px;
+  margin: 0 auto 30px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.tips-section + .tips-section {
+  margin-top: 40px;
+}
+
+/* Section heading — the four groupings the workbook uses. */
+.tips-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.tips-section-title::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0, 86, 179, 0.25), transparent);
+}
+
+/* Document checklist inside the "Bring these documents" card. */
+.tip-checklist {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tip-checklist li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.tip-checklist li::before {
+  content: '';
+  position: absolute;
+  top: 0.45em;
+  left: 0;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  opacity: 0.55;
+}
+
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
   .container {
@@ -1379,11 +1461,129 @@ nav {
 
 .script-text {
   font-family: inherit;
-  white-space: pre-wrap;
   line-height: 1.8;
   color: var(--text);
   margin-bottom: 10px;
   font-size: 1.15rem;
+}
+
+/* One line per speaking turn, indented under its speaker label. */
+.script-line {
+  padding: 6px 12px;
+  margin: 0 0 4px;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.script-speaker {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* The applicant's lines are tinted so the two speakers are tellable apart
+   on screen the same way the two voices are by ear. */
+.script-line--applicant .script-speaker {
+  color: var(--secondary);
+}
+
+/* The line currently being spoken. */
+.script-line.is-active {
+  background: rgba(0, 86, 179, 0.08);
+  border-left-color: var(--primary);
+}
+
+.script-line--applicant.is-active {
+  background: rgba(0, 168, 204, 0.1);
+  border-left-color: var(--secondary);
+}
+
+/* Held on the question during the silence left for the learner to answer. */
+.script-line.is-waiting {
+  background: rgba(255, 193, 7, 0.16);
+  border-left-color: var(--accent);
+}
+
+.script-waiting {
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 193, 7, 0.16);
+  color: var(--text);
+  font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Playing state for the section's play/stop button. */
+.audio-btn-small.is-playing {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* Vocabulary glossary — grouped into the workbook's Part 5 sections. */
+.glossary-section + .glossary-section {
+  margin-top: 42px;
+}
+
+.glossary-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 1.15rem;
+  color: var(--primary);
+}
+
+.glossary-count {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.glossary-empty {
+  padding: 30px 0;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Section D word bank: recognition words, shown as compact chips. */
+.wordbank-group {
+  margin-bottom: 22px;
+}
+
+.wordbank-group-title {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.wordbank-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wordbank-chip {
+  padding: 7px 14px;
+  border: 1px solid rgba(0, 86, 179, 0.2);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.wordbank-chip:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+  transform: translateY(-2px);
 }
 
 .tips-grid {

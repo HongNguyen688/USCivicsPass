@@ -1,7 +1,7 @@
 // ============================================================
 // FILE: modules/WorkbookViewer.jsx  —  In-App Workbook PDF Viewer
 // ============================================================
-// Shows the USCivicsPass Workbook PDF full-screen with a top bar
+// Shows the PassUSCivics Workbook PDF full-screen with a top bar
 // offering three actions: back to the Dashboard, support the
 // project via Buy Me a Coffee, and download the PDF.
 //
@@ -33,7 +33,7 @@ import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
-const WORKBOOK_URL = '/USCivicsPass-Workbook.pdf';
+const WORKBOOK_URL = '/PassUSCivics-Workbook.pdf';
 
 // The CSS width (in px) pages are drawn at before being scaled down
 // to fit narrower screens. Capped against devicePixelRatio so retina
@@ -75,7 +75,7 @@ const WorkbookViewer = ({ goToHome }) => {
   const downloadWorkbook = () => {
     const link = document.createElement('a');
     link.href = WORKBOOK_URL;
-    link.download = 'USCivicsPass-Workbook.pdf';
+    link.download = 'PassUSCivics-Workbook.pdf';
     link.click();
   };
 
@@ -154,14 +154,14 @@ const WorkbookViewer = ({ goToHome }) => {
       style={{ '--workbook-sticky-top': `${stickyTop}px` }}
     >
 
-      {/* Top bar: Back to Menu / Buy Me a Coffee / Download.
+      {/* Top bar: Back to Menu / Buy Me a Coffee / Buy Paper Book / Download.
           Sticky, so it stays reachable no matter how far the reader has
           scrolled inside the PDF container below. */}
       <div className="module-header workbook-topbar">
         <button className="back-btn workbook-back-btn" onClick={goToHome}>
           ← Back to Menu
         </button>
-        <h2>USCivicsPass Workbook</h2>
+        <h2>PassUSCivics Workbook</h2>
         <div className="workbook-actions">
           <a
             href="https://buymeacoffee.com/hongnguyen"
@@ -170,6 +170,14 @@ const WorkbookViewer = ({ goToHome }) => {
             className="btn-coffee"
           >
             ☕ Buy Me a Coffee
+          </a>
+          <a
+            href="https://a.co/d/0iGCC2Gs"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-book"
+          >
+            📕 Buy Paper Book
           </a>
           <button className="btn-primary" onClick={downloadWorkbook}>
             ⬇️ Download

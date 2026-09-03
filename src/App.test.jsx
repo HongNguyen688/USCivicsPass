@@ -5,7 +5,7 @@ import App from './App';
 describe('App Component', () => {
   it('renders the main application title', () => {
     render(<App />);
-    const titleElement = screen.getByRole('heading', { level: 1, name: /USCivicsPass/i });
+    const titleElement = screen.getByRole('heading', { level: 1, name: /PassUSCivics/i });
     expect(titleElement).toBeInTheDocument();
   });
 

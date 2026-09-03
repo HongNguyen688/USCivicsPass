@@ -1,256 +1,2321 @@
 [
-  {"word": "naturalization", "meaning": "the process of becoming a citizen"},
-  {"word": "change your name", "meaning": "a court changes your name to a different name"},
-  {"word": "USCIS", "meaning": "United States Citizenship and Immigration Services"},
-  {"word": "at least", "meaning": "not less than"},
-  {"word": "requirement", "meaning": "something you need to have"},
-  {"word": "qualified / eligible", "meaning": "having the necessary requirements"},
-  {"word": "interview", "meaning": "a meeting to ask and answer questions"},
-  {"word": "officer", "meaning": "a person with a position of authority"},
-  {"word": "fingerprints", "meaning": "a mark made by the tip of a finger"},
-  {"word": "take an oath", "meaning": "make a serious, official promise"},
-  {"word": "legal", "meaning": "following the law"},
-  {"word": "application", "meaning": "a form used for a request"},
-  {"word": "biometrics", "meaning": "measurements of a person's body"},
-  {"word": "background check", "meaning": "a search of a person's history"},
-  {"word": "full name", "meaning": "first name, middle name, last name (all of your names)"},
-  {"word": "current", "meaning": "present time, now"},
-  {"word": "first name", "meaning": "given name"},
-  {"word": "last name", "meaning": "family name or surname"},
-  {"word": "middle name", "meaning": "a name between your first name and your surname"},
-  {"word": "maiden name", "meaning": "a woman’s last name before she marries"},
-  {"word": "nickname", "meaning": "a casual name used by your family and friends"},
-  {"word": "legal name", "meaning": "full name used on legal documents"},
-  {"word": "alias", "meaning": "a different name"},
-  {"word": "date of birth", "meaning": "the month, day and year you were born"},
-  {"word": "country of birth", "meaning": "the country where you were born"},
-  {"word": "country of citizenship", "meaning": "the country where you are currently a citizen"},
-  {"word": "permanent resident", "meaning": "person who has permission to live and work in the U.S. permanently"},
-  {"word": "lawful", "meaning": "legal"},
-  {"word": "green card", "meaning": "legal permanent residence card"},
-  {"word": "state-issued identification", "meaning": "a driver's license or other photo ID from your state"},
-  {"word": "gender", "meaning": "male or female"},
-  {"word": "male", "meaning": "a boy or a man"},
-  {"word": "female", "meaning": "a girl or a woman"},
-  {"word": "height", "meaning": "how tall you are in feet and inches"},
-  {"word": "weight", "meaning": "how heavy you are"},
-  {"word": "hair color", "meaning": "hair colors include black, brown, red, blonde, grey, and white"},
-  {"word": "bald", "meaning": "with no or very little hair"},
-  {"word": "eye color", "meaning": "eye colors include blue, green, and brown"},
-  {"word": "accommodation", "meaning": "a change of process, for example, extra time or a sign-language interpreter"},
-  {"word": "exemption", "meaning": "when you are NOT required to do something"},
-  {"word": "disability", "meaning": "a condition that makes it difficult to do things most people can do"},
-  {"word": "waiver / waive", "meaning": "permission to NOT do something"},
-  {"word": "impairment", "meaning": "part of your body or mind is damaged or does not work well"},
-  {"word": "age", "meaning": "how old a person is"},
-  {"word": "blind", "meaning": "cannot see"},
-  {"word": "deaf", "meaning": "cannot hear"},
-  {"word": "wheelchair", "meaning": "a chair with wheels"},
-  {"word": "hard of hearing", "meaning": "when a person has difficulty hearing"},
-  {"word": "daytime phone number", "meaning": "the phone number you use during the day"},
-  {"word": "evening phone number", "meaning": "the phone number you use after 4 or 5 p.m."},
-  {"word": "cell phone", "meaning": "mobile phone"},
-  {"word": "email address", "meaning": "your electronic mailing address"},
-  {"word": "home address", "meaning": "the address where you live"},
-  {"word": "mailing address", "meaning": "the address where you receive your mail"},
-  {"word": "care of (c/o)", "meaning": "to give another person's name on a mailing address"},
-  {"word": "zip code", "meaning": "postal code, for example: 81723"},
-  {"word": "state", "meaning": "there are 50 states in the U.S."},
-  {"word": "county", "meaning": "part of a state; every U.S. state is divided into counties"},
-  {"word": "foreign", "meaning": "from a different country, not from the United States"},
-  {"word": "residence", "meaning": "home"},
-  {"word": "move to", "meaning": "start living in a home"},
-  {"word": "apartment", "meaning": "a residence that is in a building with other apartments"},
-  {"word": "previous / prior", "meaning": "before; in the past"},
-  {"word": "marital status", "meaning": "married, single, divorced, or widowed"},
-  {"word": "single", "meaning": "never married or not married"},
-  {"word": "married", "meaning": "has a husband or a wife"},
-  {"word": "separated", "meaning": "married but not living together or having court documents that say you are no longer a couple"},
-  {"word": "divorced", "meaning": "married but legally ended it"},
-  {"word": "widowed", "meaning": "husband or wife died"},
-  {"word": "spouse", "meaning": "husband or wife"},
-  {"word": "deceased", "meaning": "dead, to stop living / to pass away"},
-  {"word": "prior spouse", "meaning": "former husband or wife"},
-  {"word": "annulled", "meaning": "a court says that a marriage has never happened"},
-  {"word": "marriage", "meaning": "legal relationship between spouses"},
-  {"word": "children", "meaning": "sons and daughters"},
-  {"word": "son", "meaning": "male child"},
-  {"word": "daughter", "meaning": "female child"},
-  {"word": "stepchild / children", "meaning": "the child of a spouse and his or her ex-spouse"},
-  {"word": "legally adopted", "meaning": "to bring a child into a family through a legal process"},
-  {"word": "biological", "meaning": "related through birth"},
-  {"word": "relationship", "meaning": "a romantic or sexual friendship between two people"},
-  {"word": "employment", "meaning": "job or work, to have a job"},
-  {"word": "employer", "meaning": "the company or person you work for"},
-  {"word": "occupation", "meaning": "job or work"},
-  {"word": "job title", "meaning": "your job, occupation, or position"},
-  {"word": "unemployed", "meaning": "not having a job"},
-  {"word": "laid off", "meaning": "to lose a job for a reason that is not your fault"},
-  {"word": "retired", "meaning": "not working anymore because of age, to stop working permanently"},
-  {"word": "self-employed", "meaning": "working for yourself, to have your own business"},
-  {"word": "recent", "meaning": "from a time in the near past"},
-  {"word": "support yourself / your family", "meaning": "provide money for living"},
-  {"word": "income", "meaning": "money that you earn or money you receive from the government"},
-  {"word": "spend time", "meaning": "to pass time"},
-  {"word": "trip", "meaning": "when you go somewhere"},
-  {"word": "travel", "meaning": "to go to a different place"},
-  {"word": "overseas", "meaning": "in another country"},
-  {"word": "destination", "meaning": "the place you are going"},
-  {"word": "itinerary", "meaning": "a list of details about a trip"},
-  {"word": "transportation", "meaning": "a way of traveling from one place to another (car, bus, train, or plane)"},
-  {"word": "outside of the United States", "meaning": "in any country other than the U.S."},
-  {"word": "to last", "meaning": "to continue in time"},
-  {"word": "total", "meaning": "all, everything together"},
-  {"word": "total number of days", "meaning": "exactly how many days in all"},
-  {"word": "exactly", "meaning": "not more, not less"},
-  {"word": "duration", "meaning": "the length of time that something continues"},
-  {"word": "absence", "meaning": "the state of being away; to not be in a place"},
-  {"word": "claim", "meaning": "to say, write or tell something; often something that is false"},
-  {"word": "register to vote", "meaning": "to fill out a form that allows you to vote"},
-  {"word": "vote", "meaning": "to officially choose a new leader or law by casting a ballot"},
-  {"word": "hereditary title", "meaning": "to be member of the family of a king or queen"},
-  {"word": "nobility", "meaning": "to have a special name or social rank"},
-  {"word": "foreign country", "meaning": "not from the United States"},
-  {"word": "declared legally incompetent", "meaning": "when a judge or doctor says that you are mentally unable to make decisions for yourself"},
-  {"word": "mental institution", "meaning": "a place where people with psychiatric problems stay and receive treatment"},
-  {"word": "overdue", "meaning": "late for payment"},
-  {"word": "owe", "meaning": "to need to pay"},
-  {"word": "file a tax return", "meaning": "to send the government a form to say how much money you made and how much tax you paid"},
-  {"word": "non-resident", "meaning": "a person who does not permanently live in the U.S."},
-  {"word": "association / organization", "meaning": "a group of people who have similar interests or goals"},
-  {"word": "fund / foundation", "meaning": "a group that collects money for a special purpose"},
-  {"word": "party", "meaning": "a formal group of people who have similar political goals"},
-  {"word": "club / society", "meaning": "a group of people who meet to do an activity"},
-  {"word": "member", "meaning": "a person who belongs to a group"},
-  {"word": "The Communist Party", "meaning": "a political party that believes the government should own everything and forbid private property"},
-  {"word": "totalitarian", "meaning": "a government that has total control over its people and does not allow freedom"},
-  {"word": "associated with", "meaning": "connected to"},
-  {"word": "terrorist", "meaning": "a person who uses violence or threats to create fear or hurt people and governments"},
-  {"word": "advocate", "meaning": "to support or to work for"},
-  {"word": "overthrow", "meaning": "to use force or violence to change the government"},
-  {"word": "persecute", "meaning": "to treat someone cruelly or unfairly because of different beliefs"},
-  {"word": "genocide", "meaning": "to kill a group of people because of their race, ethnicity, or religion"},
-  {"word": "torture", "meaning": "to cause severe pain to a person to get information"},
-  {"word": "kill", "meaning": "to cause a person to die"},
-  {"word": "hurt", "meaning": "to injure someone"},
-  {"word": "on purpose", "meaning": "to do something intentionally"},
-  {"word": "force", "meaning": "to make someone do something he or she does not want to do"},
-  {"word": "let", "meaning": "permit, allow"},
-  {"word": "military unit", "meaning": "a group of people that is part of an official army"},
-  {"word": "paramilitary unit", "meaning": "a group of people that acts like an army although it is not official"},
-  {"word": "police unit", "meaning": "a group of government workers who keep order and help people"},
-  {"word": "self-defense unit", "meaning": "a group of people who use weapons to protect their community"},
-  {"word": "vigilante unit", "meaning": "a group of people who act like the police but are not official"},
-  {"word": "rebel group", "meaning": "a group of people who use weapons to fight against the government"},
-  {"word": "guerrilla group", "meaning": "a group that uses weapons to attack the military, police, or government"},
-  {"word": "militia", "meaning": "an army of people who are not official soldiers"},
-  {"word": "insurgent organization", "meaning": "a group of people who use weapons to fight against the government"},
-  {"word": "prison / jail", "meaning": "a place where the police keep people who have committed a crime"},
-  {"word": "prison camp", "meaning": "a place for military or political prisoners during a war"},
-  {"word": "detention facility", "meaning": "a place like a prison or jail where people are forced to stay"},
-  {"word": "labor camp", "meaning": "a place where people are forced to work and cannot leave"},
-  {"word": "weapon", "meaning": "something like a gun, knife, or bomb used to hurt or kill people"},
-  {"word": "training", "meaning": "being taught how to do something"},
-  {"word": "threaten", "meaning": "to say that you will hurt or kill a person if they don't do what you want"},
-  {"word": "recruit, enlist, or conscript", "meaning": "ask, convince, or make people join a group"},
-  {"word": "combat", "meaning": "fight with weapons; fight in a war"},
-  {"word": "commit a crime or offense", "meaning": "to do something illegal or break the law"},
-  {"word": "arrested", "meaning": "the police take a person for questioning or to jail"},
-  {"word": "cited", "meaning": "an official order for someone to appear in court or pay a fine"},
-  {"word": "detained", "meaning": "to be stopped by the police or a government official for questioning"},
-  {"word": "charged with a crime", "meaning": "when police officially say a person has broken the law"},
-  {"word": "convicted of a crime", "meaning": "a judge or court finds you guilty"},
-  {"word": "rehabilitative program (\u201crehab\u201d)", "meaning": "a program to cure drug or alcohol addiction or manage anger"},
-  {"word": "sentence", "meaning": "a punishment given by a judge"},
-  {"word": "suspended sentence", "meaning": "a punishment you don\u2019t need to do unless you get into trouble"},
-  {"word": "probation", "meaning": "when you are supervised by an officer and must follow special rules"},
-  {"word": "paroled", "meaning": "when you are allowed to leave prison early but must report regularly"},
-  {"word": "habitual drunkard", "meaning": "a person who drinks too much alcohol every day"},
-  {"word": "prostitute", "meaning": "a person who has sex for money"},
-  {"word": "procure", "meaning": "to buy illegal items or people for sex"},
-  {"word": "illegal drugs", "meaning": "drugs that are against federal law, such as heroin or cocaine"},
-  {"word": "smuggle", "meaning": "to bring something into the country illegally"},
-  {"word": "gambling / gamble", "meaning": "to play cards or games for money"},
-  {"word": "dependents", "meaning": "people (spouse, children, parents) who get money from you for living expenses"},
-  {"word": "fail to", "meaning": "to not do something you should do"},
-  {"word": "alimony", "meaning": "money that a court orders someone to pay monthly to their ex-spouse"},
-  {"word": "public benefits", "meaning": "social services or financial support from the government"},
-  {"word": "misrepresentation", "meaning": "to give false information or to lie about yourself"},
-  {"word": "false / fraudulent / misleading", "meaning": "the opposite of the truth; a lie intended to get something you want"},
-  {"word": "gain entry or admission", "meaning": "to get permission to come into the United States"},
-  {"word": "deported", "meaning": "to be officially sent back to your original country by the government"},
-  {"word": "deportation proceedings", "meaning": "a legal case to decide if a person should be sent back to their country"},
-  {"word": "removed / excluded", "meaning": "officially made to leave the United States or not allowed to enter"},
-  {"word": "ordered", "meaning": "told to do something by a court or government official"},
-  {"word": "rescission", "meaning": "the government cancels a person's legal status after it was originally given"},
-  {"word": "pending", "meaning": "still waiting for a decision; not decided"},
-  {"word": "Constitution", "meaning": "the supreme law or framework of the land; document creating the U.S. government"},
-  {"word": "oath", "meaning": "a serious promise"},
-  {"word": "The Oath of Allegiance", "meaning": "a promise to be loyal to the United States"},
-  {"word": "allegiance", "meaning": "loyalty to"},
-  {"word": "bear arms", "meaning": "to carry or use a weapon to go to war and fight for the U.S."},
-  {"word": "noncombatant services", "meaning": "military work that does not involve fighting (e.g., medical or kitchen work)"},
-  {"word": "work of national importance", "meaning": "help the country during an emergency or natural disaster (e.g., hurricane relief)"},
-  {"word": "under civilian direction", "meaning": "following the orders of non-military safety officers (e.g., Red Cross)"},
-  {"word": "support", "meaning": "believe in and defend"},
-  {"word": "willing to", "meaning": "agree to do something"},
-  {"word": "border", "meaning": "a division between two places"},
-  {"word": "coast", "meaning": "where land meets an ocean or sea"},
-  {"word": "river", "meaning": "a large body of water that goes into an ocean or lake"},
-  {"word": "territory", "meaning": "a place that is part of the United States but is not a state"},
-  {"word": "east / west", "meaning": "the direction where the sun rises / sets"},
-  {"word": "colony", "meaning": "one of the first 13 areas of land that became the first U.S. states"},
-  {"word": "American Indians / Native Americans", "meaning": "the people who lived in America before Europeans arrived"},
-  {"word": "slaves", "meaning": "people who are legally owned by others and forced to work without pay"},
-  {"word": "religious freedom", "meaning": "the right to practice any religion or none at all"},
-  {"word": "tribes", "meaning": "a group of people or families with common language and customs"},
-  {"word": "colonists", "meaning": "people from different countries who lived in the original 13 British colonies"},
-  {"word": "taxes", "meaning": "money that a government requires people to pay for public services"},
-  {"word": "freedom / liberty", "meaning": "the ability to do what you want; not being controlled by anyone"},
-  {"word": "Declaration of Independence", "meaning": "the document stating the colonies were free from Great Britain"},
-  {"word": "rights", "meaning": "things that you are legally or morally allowed to do or have"},
-  {"word": "Great Britain", "meaning": "the country that ruled the 13 colonies until July 4, 1776"},
-  {"word": "representative", "meaning": "a person chosen to speak or make decisions for a group"},
-  {"word": "amendment", "meaning": "a change or an addition to the Constitution"},
-  {"word": "Bill of Rights", "meaning": "the first ten amendments to the Constitution"},
-  {"word": "guarantee", "meaning": "a promise that something will happen"},
-  {"word": "government", "meaning": "the organization and rules for our country"},
-  {"word": "law", "meaning": "a rule made by the government"},
-  {"word": "freedom of religion", "meaning": "the right to practice any religion or not practice a religion"},
-  {"word": "freedom of speech", "meaning": "the right to say what you want without hurting anyone"},
-  {"word": "freedom of the press", "meaning": "the right to independent news not controlled by government"},
-  {"word": "Congress", "meaning": "the legislative part of government that makes federal laws"},
-  {"word": "Senate", "meaning": "one of the two parts of Congress, with two senators per state"},
-  {"word": "House of Representatives", "meaning": "one part of Congress, with representative count based on state population"},
-  {"word": "senator", "meaning": "an elected person in the Senate representing a state for 6 years"},
-  {"word": "President", "meaning": "the leader of the executive branch of the U.S. government"},
-  {"word": "Vice President", "meaning": "the person who becomes president if the current one can no longer serve"},
-  {"word": "Cabinet", "meaning": "a group of advisers to the president"},
-  {"word": "veto", "meaning": "the president's power to refuse to sign a bill into law"},
-  {"word": "Major Wars", "meaning": "World War I, World War II, Korean War, Vietnam War, Persian Gulf War"},
-  {"word": "The Great Depression", "meaning": "a severe economic time in the 1930s with job and home losses"},
-  {"word": "Communism", "meaning": "government where the state owns property and citizens have little freedom"},
-  {"word": "The Cold War", "meaning": "political tension between U.S. and Soviet Union after WWII (1947-1991)"},
-  {"word": "Civil Rights Movement", "meaning": "a group effort to gain equality for all citizens"},
-  {"word": "equal rights", "meaning": "the same freedoms and privileges for everyone"},
-  {"word": "racial discrimination", "meaning": "treating people unfairly because of their skin color or race"},
-  {"word": "Martin Luther King, Jr.", "meaning": "the most famous leader of the Civil Rights Movement"},
-  {"word": "September 11, 2001", "meaning": "the date terrorists attacked the United States"},
-  {"word": "United Nations", "meaning": "international group where countries meet to find peaceful solutions"},
-  {"word": "democracy", "meaning": "government where people choose leaders by voting"},
-  {"word": "candidate", "meaning": "a person who is trying to become an elected official"},
-  {"word": "Governor", "meaning": "the leader of the executive branch of a state"},
-  {"word": "Mayor", "meaning": "the leader of a city or town government"},
-  {"word": "jury", "meaning": "citizens in a court who decide if someone is guilty"},
-  {"word": "Selective Service", "meaning": "office keeping a list of men potentially required for military service"},
-  {"word": "income tax", "meaning": "money paid to government once a year based on earnings"},
-  {"word": "Pledge of Allegiance", "meaning": "a serious promise to support and respect the United States"},
-  {"word": "statue", "meaning": "a piece of art, usually made from stone or metal"},
-  {"word": "symbol", "meaning": "an object that represents an idea or quality (e.g., Statue of Liberty)"},
-  {"word": "loyalty", "meaning": "total support and respect"},
-  {"word": "Veterans Day", "meaning": "holiday to honor everyone who served in the military"},
-  {"word": "Memorial Day", "meaning": "holiday to honor everyone who died while serving in the military"},
-  {"word": "swearing in", "meaning": "starting the interview by making a serious promise"},
-  {"word": "the whole truth", "meaning": "you will not leave out important information"},
-  {"word": "nothing but the truth", "meaning": "everything you say will be true"}
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "amendment",
+    "meaning": "a change or an addition to the Constitution"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "anthem",
+    "meaning": "the official song of a country"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "appoint / appoints",
+    "meaning": "to choose someone for a job, without a vote"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "ballot",
+    "meaning": "the paper or the screen you use to vote"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Bill of Rights",
+    "meaning": "the first ten amendments to the Constitution"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "branch",
+    "meaning": "one of the three main parts of the U.S. government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Cabinet",
+    "meaning": "a group of advisers to the president"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "candidate",
+    "meaning": "a person who is running for a job that people vote for"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "capitalism / capitalist",
+    "meaning": "a system where people, not the government, own the businesses"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "checks and balances",
+    "meaning": "the way each branch of government can stop the other two from getting too strong"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "civics",
+    "meaning": "how the U.S. government works and how the country began; the subject of one of your two tests"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Congress",
+    "meaning": "the part of the U.S. government that makes laws — made up of the Senate and the House of Representatives"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Constitution",
+    "meaning": "the highest law in the United States; the document that created the U.S. government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "declare war",
+    "meaning": "to say in an official way that your country is at war"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "democracy",
+    "meaning": "government where people choose leaders by voting"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "election",
+    "meaning": "the time when people vote"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Electoral College",
+    "meaning": "the group that picks the President in an official way after the people vote"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "executive branch",
+    "meaning": "the part of the government led by the President, which carries out the laws"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "federal",
+    "meaning": "belonging to the government of the whole country, not to one state"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "freedom / liberty",
+    "meaning": "the ability to do what you want; not being controlled by anyone"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "freedom of religion",
+    "meaning": "the right to practice any religion or not practice a religion"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "freedom of speech",
+    "meaning": "the right to say your own ideas and opinions, within legal limits"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "government",
+    "meaning": "the organization and rules for our country"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Governor",
+    "meaning": "the top leader of a state government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "House of Representatives",
+    "meaning": "one part of Congress; each state's number of representatives depends on its population"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "judicial branch",
+    "meaning": "the part of the government made of the courts"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "jury",
+    "meaning": "citizens in a court who decide if someone is guilty"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "justices",
+    "meaning": "the judges on the Supreme Court"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "law",
+    "meaning": "a rule made by the government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "legislative branch",
+    "meaning": "the part of the government that makes the laws; Congress"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Mayor",
+    "meaning": "the leader of a city or town government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "motto",
+    "meaning": "a short saying that stands for a country or a group"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "obey",
+    "meaning": "to do what a law, or a person in charge, tells you to do"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "party",
+    "meaning": "a formal group of people who have similar political goals"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Pledge of Allegiance",
+    "meaning": "a serious promise to support and respect the United States"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "President",
+    "meaning": "the top leader of the U.S. government"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "pursuit of happiness",
+    "meaning": "the right to look for a happy life"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "register to vote",
+    "meaning": "to fill out a form that allows you to vote"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "representative",
+    "meaning": "a person chosen to speak or make decisions for a group"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "republic",
+    "meaning": "a country where the people vote for the leaders who make the laws"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "rights",
+    "meaning": "things you are allowed to do or have"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "river",
+    "meaning": "a large body of water that goes into an ocean or lake"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Selective Service",
+    "meaning": "a government office that keeps a list of men who might be called for military service"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Senate",
+    "meaning": "one of the two parts of Congress, with two senators per state"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "senator",
+    "meaning": "an elected person in the Senate representing a state for 6 years"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "separation of powers",
+    "meaning": "the way the three branches of government each have their own job"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Star-Spangled Banner",
+    "meaning": "the name of the national anthem of the United States"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "state",
+    "meaning": "there are 50 states in the U.S"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "symbol",
+    "meaning": "an object that stands for an idea — for example, the Statue of Liberty"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "taxes",
+    "meaning": "money the government asks people to pay for public services"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "term",
+    "meaning": "the number of years a person keeps a job before the next election"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "territory",
+    "meaning": "a place that is part of the United States but is not a state"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "veto",
+    "meaning": "the president's power to refuse to sign a bill into law"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "Vice President",
+    "meaning": "the person who becomes president if the current one can no longer serve"
+  },
+  {
+    "section": "A. Government and the Civics Test",
+    "word": "vote",
+    "meaning": "to officially choose a new leader or law by casting a ballot"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Allied Powers",
+    "meaning": "the countries, with the United States, that fought on the same side in World War I and World War II"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "American Indians / Native Americans",
+    "meaning": "the people who lived in America before Europeans arrived"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "assassinated",
+    "meaning": "killed, when the person killed is a leader"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Axis Powers",
+    "meaning": "Germany, Italy, and Japan; the countries the United States fought in World War II"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Civil Rights Movement",
+    "meaning": "a group effort to gain equality for all citizens"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Civil War",
+    "meaning": "the war between the northern and the southern states (1861-1865)"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "colonists",
+    "meaning": "people from different countries who lived in the original 13 British colonies"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "colony",
+    "meaning": "one of the first 13 areas of land that became the first U.S. states"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Communism",
+    "meaning": "a system of government where the government owns everything and people have very little freedom"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Confederacy / Confederate states",
+    "meaning": "the southern states that left the United States during the Civil War"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Constitutional Convention",
+    "meaning": "the meeting in 1787 where the Constitution was written"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Declaration of Independence",
+    "meaning": "the document that said the colonies were free from Great Britain"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Emancipation Proclamation",
+    "meaning": "Lincoln's order in 1863 that freed the slaves in the southern states"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Federalist Papers",
+    "meaning": "writings that asked people to accept the new Constitution"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Founding Fathers",
+    "meaning": "the men who started the United States and wrote its first documents"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Gettysburg Address",
+    "meaning": "a short, famous speech Abraham Lincoln gave during the Civil War"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Great Britain",
+    "meaning": "the country that ruled the 13 colonies; the colonies declared their independence from Britain on July 4, 1776"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Juneteenth",
+    "meaning": "June 19; a holiday for the end of slavery in the United States"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Louisiana Territory",
+    "meaning": "the large piece of land the United States bought from France in 1803"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Major Wars",
+    "meaning": "World War I, World War II, Korean War, Vietnam War, Persian Gulf War"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Martin Luther King, Jr.",
+    "meaning": "the most famous leader of the Civil Rights Movement"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Memorial Day",
+    "meaning": "holiday to honor everyone who died while serving in the military"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Pearl Harbor",
+    "meaning": "the U.S. navy base in Hawaii that Japan attacked in 1941; this brought the United States into World War II"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Reconstruction",
+    "meaning": "the years after the Civil War, when the South was built again and joined the country again"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "September 11, 2001",
+    "meaning": "the date terrorists attacked the United States"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "slavery",
+    "meaning": "when people are owned by other people and forced to work for no pay"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Soviet Union (USSR)",
+    "meaning": "the large communist country the United States was against during the Cold War"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "taxation without representation",
+    "meaning": "being made to pay taxes when no one speaks for you in the government"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "The Cold War",
+    "meaning": "years of conflict and distrust between the U.S. and the Soviet Union after World War II (1947- 1991)"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "The Great Depression",
+    "meaning": "a time when the U.S. economy was very bad; it started with the stock market crash in 1929 and lasted through the 1930s"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "tribes",
+    "meaning": "a group of people or families with common language and customs"
+  },
+  {
+    "section": "B. History Words in the Civics Answers",
+    "word": "Veterans Day",
+    "meaning": "holiday to honor everyone who served in the military"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "absence",
+    "meaning": "not being in a place; being away"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "accommodation",
+    "meaning": "a change that helps you, like extra time or a sign-language interpreter"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "alias",
+    "meaning": "a different name"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "application",
+    "meaning": "a form used for a request"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "arrested",
+    "meaning": "the police take a person for questioning or to jail"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "background check",
+    "meaning": "a check of a person's past record"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "bear arms",
+    "meaning": "to carry or use a weapon to go to war and fight for the U.S"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "biometrics",
+    "meaning": "measurements of your body, like fingerprints or a photo"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "charged with a crime",
+    "meaning": "when police officially say a person has broken the law"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "children",
+    "meaning": "sons and daughters"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "convicted of a crime",
+    "meaning": "a judge or court finds you guilty"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "country of birth",
+    "meaning": "the country where you were born"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "country of citizenship",
+    "meaning": "the country where you are currently a citizen"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "date of birth",
+    "meaning": "the month, day and year you were born"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "deported",
+    "meaning": "to be officially sent back to your original country by the government"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "disability",
+    "meaning": "a condition that makes it difficult to do things most people can do"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "divorced",
+    "meaning": "married but legally ended it"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "employer",
+    "meaning": "the company or person you work for"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "eye color",
+    "meaning": "eye colors include blue, green, and brown"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "false / fraudulent / misleading",
+    "meaning": "not true; a lie told to get something you want"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "file a tax return",
+    "meaning": "to send the government a form to say how much money you made and how much tax you paid"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "fingerprints",
+    "meaning": "a mark made by the tip of a finger"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "first name",
+    "meaning": "given name"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "full name",
+    "meaning": "first name, middle name, last name (all of your names)"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "gender",
+    "meaning": "male or female"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "genocide",
+    "meaning": "to kill a whole group of people because of their race, culture, or religion"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "green card",
+    "meaning": "legal permanent residence card"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "hair color",
+    "meaning": "hair colors include black, brown, red, blonde, gray, and white"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "height",
+    "meaning": "how tall you are in feet and inches"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "home address",
+    "meaning": "the address where you live"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "illegal drugs",
+    "meaning": "drugs that are against federal law, such as heroin or cocaine"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "interpreter",
+    "meaning": "a person who says your words in another language"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "interview",
+    "meaning": "a meeting to ask and answer questions"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "last name",
+    "meaning": "your family name"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "maiden name",
+    "meaning": "a woman's last name before she marries"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "mailing address",
+    "meaning": "the address where you receive your mail"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "marital status",
+    "meaning": "married, single, divorced, or widowed"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "married",
+    "meaning": "has a husband or a wife"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "middle name",
+    "meaning": "a name between your first name and your surname"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "naturalization",
+    "meaning": "the process of becoming a citizen"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "nobility",
+    "meaning": "a special rank or title given to royal families"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "noncombatant services",
+    "meaning": "military work that does not involve fighting — for example, medical work or kitchen work"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "nothing but the truth",
+    "meaning": "everything you say will be true"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "oath",
+    "meaning": "a serious promise"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "occupation",
+    "meaning": "job or work"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "outside of the United States",
+    "meaning": "in any country other than the U.S"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "overthrow",
+    "meaning": "to use force or violence to change the government"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "passport",
+    "meaning": "the book your country gives you so you can travel to other countries"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "perjury",
+    "meaning": "lying under oath; not telling the truth in court or on an application"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "permanent resident",
+    "meaning": "person who has permission to live and work in the U.S. permanently"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "prison / jail",
+    "meaning": "a place where the police keep people who have committed a crime"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "qualified / eligible",
+    "meaning": "having everything the rules ask for"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "residence",
+    "meaning": "home"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "separated",
+    "meaning": "married, but living apart — or you have court papers saying you are no longer living as a couple"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "single",
+    "meaning": "never married or not married"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "spouse",
+    "meaning": "husband or wife"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "support",
+    "meaning": "believe in and defend"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "swearing in",
+    "meaning": "starting the interview by making a serious promise"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "terrorist",
+    "meaning": "a person who uses violence or threats to create fear or hurt people and governments"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "The Oath of Allegiance",
+    "meaning": "a promise to be loyal to the United States"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "the whole truth",
+    "meaning": "you will not leave out important information"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "torture",
+    "meaning": "to cause severe pain to a person to get information"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "total number of days",
+    "meaning": "exactly how many days in all"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "travel",
+    "meaning": "to go to a different place"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "under oath",
+    "meaning": "after you have promised to tell the truth"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "USCIS",
+    "meaning": "United States Citizenship and Immigration Services"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "weapon",
+    "meaning": "something like a gun, knife, or bomb used to hurt or kill people"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "widowed",
+    "meaning": "husband or wife died"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "willing to",
+    "meaning": "agree to do something"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "work of national importance",
+    "meaning": "helping the country during an emergency or a natural disaster — for example, after a hurricane"
+  },
+  {
+    "section": "C. Interview and Form Words",
+    "word": "zip code",
+    "meaning": "postal code, for example: 20001"
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — People",
+    "word": "George Washington",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — People",
+    "word": "Abraham Lincoln",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "American flag",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "Bill of Rights",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "capital",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "citizen",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "city",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "Congress",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "country",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "Father of Our Country",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "government",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "President",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "right",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "Senators",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "state / states",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Civics",
+    "word": "White House",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Places",
+    "word": "America",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Places",
+    "word": "United States",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Places",
+    "word": "U.S.",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Presidents' Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Memorial Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Flag Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Independence Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Labor Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Columbus Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Holidays",
+    "word": "Thanksgiving",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "how",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "what",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "when",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "where",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "who",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Question words",
+    "word": "why",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "can",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "come",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "do / does",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "elects",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "have / has",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "is / are / was / be",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "lives / lived",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "meet",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "name",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "pay",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "vote",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Verbs",
+    "word": "want",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "a",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "for",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "here",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "in",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "of",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "on",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "the",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "to",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Small words",
+    "word": "we",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "colors",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "dollar bill",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "first",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "largest",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "many",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "most",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "north",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "one",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "people",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "second",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Reading test words — Other words",
+    "word": "south",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — People",
+    "word": "Adams",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — People",
+    "word": "Lincoln",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — People",
+    "word": "Washington",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "American Indians",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "capital",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "citizens",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "Civil War",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "Congress",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "Father of Our Country",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "flag",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "free",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "freedom of speech",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "President",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "right",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "Senators",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "state / states",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Civics",
+    "word": "White House",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Alaska",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "California",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Canada",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Delaware",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Mexico",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "New York City",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "United States",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Washington",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Places",
+    "word": "Washington, D.C.",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "February",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "May",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "June",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "July",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "September",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "October",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Months",
+    "word": "November",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Presidents' Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Memorial Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Flag Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Independence Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Labor Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Columbus Day",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Holidays",
+    "word": "Thanksgiving",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "can",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "come",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "elect",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "have / has",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "is / was / be",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "lives / lived",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "meets",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "pay",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "vote",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Verbs",
+    "word": "want",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "and",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "during",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "for",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "here",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "in",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "of",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "on",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "the",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "to",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Small words",
+    "word": "we",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "blue",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "dollar bill",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "fifty / 50",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "first",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "largest",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "most",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "north",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "one",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "one hundred / 100",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "people",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "red",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "second",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "south",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "taxes",
+    "meaning": ""
+  },
+  {
+    "section": "D. Reading and Writing Vocabulary",
+    "group": "Writing test words — Other words",
+    "word": "white",
+    "meaning": ""
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "change your name",
+    "meaning": "a court changes your name to a different name"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "at least",
+    "meaning": "not less than"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "requirement",
+    "meaning": "something you need to have"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "officer",
+    "meaning": "a person with a position of authority"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "take an oath",
+    "meaning": "make a serious, official promise"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "legal",
+    "meaning": "following the law"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "current",
+    "meaning": "present time, now"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "nickname",
+    "meaning": "a casual name used by your family and friends"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "legal name",
+    "meaning": "full name used on legal documents"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "lawful",
+    "meaning": "legal"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "state-issued identification",
+    "meaning": "a driver's license or other photo ID from your state"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "male",
+    "meaning": "a boy or a man"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "female",
+    "meaning": "a girl or a woman"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "weight",
+    "meaning": "how heavy you are"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "bald",
+    "meaning": "with no or very little hair"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "exemption",
+    "meaning": "when you are NOT required to do something"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "waiver / waive",
+    "meaning": "permission to NOT do something"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "impairment",
+    "meaning": "part of your body or mind is damaged or does not work well"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "age",
+    "meaning": "how old a person is"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "blind",
+    "meaning": "cannot see"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "deaf",
+    "meaning": "cannot hear"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "wheelchair",
+    "meaning": "a chair with wheels"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "hard of hearing",
+    "meaning": "when a person has difficulty hearing"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "daytime phone number",
+    "meaning": "the phone number you use during the day"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "evening phone number",
+    "meaning": "the phone number you use after 4 or 5 p.m"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "cell phone",
+    "meaning": "mobile phone"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "email address",
+    "meaning": "your electronic mailing address"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "care of (c/o)",
+    "meaning": "to give another person's name on a mailing address"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "county",
+    "meaning": "part of a state; every U.S. state is divided into counties"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "foreign",
+    "meaning": "from a different country, not from the United States"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "move to",
+    "meaning": "start living in a home"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "apartment",
+    "meaning": "a residence that is in a building with other apartments"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "previous / prior",
+    "meaning": "before; in the past"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "deceased",
+    "meaning": "dead, to stop living / to pass away"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "prior spouse",
+    "meaning": "former husband or wife"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "annulled",
+    "meaning": "a court says that a marriage has never happened"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "marriage",
+    "meaning": "legal relationship between spouses"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "son",
+    "meaning": "male child"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "daughter",
+    "meaning": "female child"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "stepchild / children",
+    "meaning": "the child of a spouse and his or her ex-spouse"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "legally adopted",
+    "meaning": "to bring a child into a family through a legal process"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "biological",
+    "meaning": "related through birth"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "relationship",
+    "meaning": "a romantic or sexual friendship between two people"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "employment",
+    "meaning": "job or work, to have a job"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "job title",
+    "meaning": "your job, occupation, or position"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "unemployed",
+    "meaning": "not having a job"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "laid off",
+    "meaning": "to lose a job for a reason that is not your fault"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "retired",
+    "meaning": "not working anymore because of age, to stop working permanently"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "self-employed",
+    "meaning": "working for yourself, to have your own business"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "recent",
+    "meaning": "from a time in the near past"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "support yourself / your family",
+    "meaning": "provide money for living"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "income",
+    "meaning": "money that you earn or money you receive from the government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "spend time",
+    "meaning": "to pass time"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "trip",
+    "meaning": "when you go somewhere"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "overseas",
+    "meaning": "in another country"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "destination",
+    "meaning": "the place you are going"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "itinerary",
+    "meaning": "a list of details about a trip"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "transportation",
+    "meaning": "a way of traveling from one place to another (car, bus, train, or plane)"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "to last",
+    "meaning": "to continue in time"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "total",
+    "meaning": "all, everything together"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "exactly",
+    "meaning": "not more, not less"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "duration",
+    "meaning": "the length of time that something continues"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "claim",
+    "meaning": "to say, write or tell something; often something that is false"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "hereditary title",
+    "meaning": "to be member of the family of a king or queen"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "foreign country",
+    "meaning": "not from the United States"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "declared legally incompetent",
+    "meaning": "when a judge or doctor says that you are mentally unable to make decisions for yourself"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "mental institution",
+    "meaning": "a place where people with psychiatric problems stay and receive treatment"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "overdue",
+    "meaning": "late for payment"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "owe",
+    "meaning": "to need to pay"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "non-resident",
+    "meaning": "a person who does not permanently live in the U.S"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "association / organization",
+    "meaning": "a group of people who have similar interests or goals"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "fund / foundation",
+    "meaning": "a group that collects money for a special purpose"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "club / society",
+    "meaning": "a group of people who meet to do an activity"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "member",
+    "meaning": "a person who belongs to a group"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "The Communist Party",
+    "meaning": "a political party that believes the government should own everything and forbid private property"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "totalitarian",
+    "meaning": "a government that has total control over its people and does not allow freedom"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "associated with",
+    "meaning": "connected to"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "advocate",
+    "meaning": "to support or to work for"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "persecute",
+    "meaning": "to treat someone cruelly or unfairly because of different beliefs"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "kill",
+    "meaning": "to cause a person to die"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "hurt",
+    "meaning": "to injure someone"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "on purpose",
+    "meaning": "to do something intentionally"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "force",
+    "meaning": "to make someone do something he or she does not want to do"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "let",
+    "meaning": "permit, allow"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "military unit",
+    "meaning": "a group of people that is part of an official army"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "paramilitary unit",
+    "meaning": "a group of people that acts like an army although it is not official"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "police unit",
+    "meaning": "a group of government workers who keep order and help people"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "self-defense unit",
+    "meaning": "a group of people who use weapons to protect their community"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "vigilante unit",
+    "meaning": "a group of people who act like the police but are not official"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "rebel group",
+    "meaning": "a group of people who use weapons to fight against the government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "guerrilla group",
+    "meaning": "a group that uses weapons to attack the military, police, or government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "militia",
+    "meaning": "an army of people who are not official soldiers"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "insurgent organization",
+    "meaning": "a group of people who use weapons to fight against the government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "prison camp",
+    "meaning": "a place for military or political prisoners during a war"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "detention facility",
+    "meaning": "a place like a prison or jail where people are forced to stay"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "labor camp",
+    "meaning": "a place where people are forced to work and cannot leave"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "training",
+    "meaning": "being taught how to do something"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "threaten",
+    "meaning": "to say that you will hurt or kill a person if they don't do what you want"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "recruit, enlist, or conscript",
+    "meaning": "ask, convince, or make people join a group"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "combat",
+    "meaning": "fight with weapons; fight in a war"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "commit a crime or offense",
+    "meaning": "to do something illegal or break the law"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "cited",
+    "meaning": "an official order for someone to appear in court or pay a fine"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "detained",
+    "meaning": "to be stopped by the police or a government official for questioning"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "rehabilitative program (“rehab”)",
+    "meaning": "a program to cure drug or alcohol addiction or manage anger"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "sentence",
+    "meaning": "a punishment given by a judge"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "suspended sentence",
+    "meaning": "a punishment you don’t need to do unless you get into trouble"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "probation",
+    "meaning": "when you are supervised by an officer and must follow special rules"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "paroled",
+    "meaning": "when you are allowed to leave prison early but must report regularly"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "habitual drunkard",
+    "meaning": "a person who drinks too much alcohol every day"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "prostitute",
+    "meaning": "a person who has sex for money"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "procure",
+    "meaning": "to buy illegal items or people for sex"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "smuggle",
+    "meaning": "to bring something into the country illegally"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "gambling / gamble",
+    "meaning": "to play cards or games for money"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "dependents",
+    "meaning": "people (spouse, children, parents) who get money from you for living expenses"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "fail to",
+    "meaning": "to not do something you should do"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "alimony",
+    "meaning": "money that a court orders someone to pay monthly to their ex-spouse"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "public benefits",
+    "meaning": "social services or financial support from the government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "misrepresentation",
+    "meaning": "to give false information or to lie about yourself"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "gain entry or admission",
+    "meaning": "to get permission to come into the United States"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "deportation proceedings",
+    "meaning": "a legal case to decide if a person should be sent back to their country"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "removed / excluded",
+    "meaning": "officially made to leave the United States or not allowed to enter"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "ordered",
+    "meaning": "told to do something by a court or government official"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "rescission",
+    "meaning": "the government cancels a person's legal status after it was originally given"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "pending",
+    "meaning": "still waiting for a decision; not decided"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "allegiance",
+    "meaning": "loyalty to"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "under civilian direction",
+    "meaning": "following the orders of non-military safety officers (e.g., Red Cross)"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "border",
+    "meaning": "a division between two places"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "coast",
+    "meaning": "where land meets an ocean or sea"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "east / west",
+    "meaning": "the direction where the sun rises / sets"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "slaves",
+    "meaning": "people who are legally owned by others and forced to work without pay"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "religious freedom",
+    "meaning": "the right to practice any religion or none at all"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "guarantee",
+    "meaning": "a promise that something will happen"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "freedom of the press",
+    "meaning": "the right to independent news not controlled by government"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "equal rights",
+    "meaning": "the same freedoms and privileges for everyone"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "racial discrimination",
+    "meaning": "treating people unfairly because of their skin color or race"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "United Nations",
+    "meaning": "international group where countries meet to find peaceful solutions"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "income tax",
+    "meaning": "money paid to government once a year based on earnings"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "statue",
+    "meaning": "a piece of art, usually made from stone or metal"
+  },
+  {
+    "section": "E. More Interview and Form Words",
+    "word": "loyalty",
+    "meaning": "total support and respect"
+  }
 ]

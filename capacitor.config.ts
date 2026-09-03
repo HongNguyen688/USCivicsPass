@@ -17,7 +17,7 @@ const useLocalBundle = Boolean(process.env.CAP_LOCAL);
 
 const config: CapacitorConfig = {
   appId: 'com.uscivicspass.app',
-  appName: 'US Civics Pass',
+  appName: 'Pass US Civics',
   webDir: 'dist',
   ...(useLocalBundle
     ? {}

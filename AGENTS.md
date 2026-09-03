@@ -1,4 +1,4 @@
-# AI Agent Guide: USCivicsPass
+# AI Agent Guide: PassUSCivics
 
 This guide helps AI coding agents be immediately productive in this React + Vite civics prep app. For detailed architecture, see [CLAUDE.md](CLAUDE.md).
 

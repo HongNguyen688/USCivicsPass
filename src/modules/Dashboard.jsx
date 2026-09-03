@@ -114,8 +114,8 @@ const Dashboard = ({
         {/* Card 8: Opens the in-app workbook PDF viewer. */}
         <DashboardCard
           title="Workbook"
-          desc="View the full USCivicsPass Workbook to study and print offline."
-          icon={<img src="/CitizenshipCover-small.png" alt="USCivicsPass Workbook cover" className="card-icon-img" />}
+          desc="View the full PassUSCivics Workbook to study and print offline."
+          icon={<img src="/CitizenshipCover-small.png" alt="PassUSCivics Workbook cover" className="card-icon-img" />}
           onClick={() => setView('workbook')}
           variant="primary"
         />
