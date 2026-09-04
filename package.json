@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
+    "audio": "node scripts/generate-audio.mjs",
     "postinstall": "patch-package"
   },
   "dependencies": {

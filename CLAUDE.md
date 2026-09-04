@@ -65,14 +65,15 @@ All question/sentence content is in `src/data/`:
 - `citizenshipVocabulary.json` — word + meaning pairs for the vocabulary module
 - `n400Questions.json` — N-400 form prep questions, categorized (Vocabulary, Character, etc.)
 - `mockInterview.json` / `interviewTips.json` — mock interview script and tips used by `N400Prep`
+- `interviewAudio.json` / `speechAudio.json` — **generated**, do not hand-edit. Map spoken content to its pre-rendered audio files (see "Pre-rendered audio" below)
 - `translations.js` — object keyed by the **English question string** (not an id), each holding `{ es, vi, ko, zh }` → `{ q, a }`. A question whose text changes silently loses its subtitles — update both files together.
 
 ### Utility Functions (defined in App.jsx, passed as props)
 
-- `speakText(text)` — dispatches to `Capacitor.isNativePlatform()` ? Capacitor's `TextToSpeech` plugin (native iOS/Android neural voice) : browser `window.speechSynthesis`; cancelled automatically on question/view change
+- `speakText(text)` — plays the pre-rendered recording of `text` where one exists (see "Pre-rendered audio"), else falls back to `speakSynthesized`, which dispatches to `Capacitor.isNativePlatform()` ? Capacitor's `TextToSpeech` plugin : browser `window.speechSynthesis`. Cancelled automatically on question/view change — that effect pauses both `<audio>` elements as well as stopping the synthesizer
 - `generateOptions(correctAnswer, dataPool)` — builds 3-option multiple-choice set (1 correct + 2 random distractors)
 - `generateDefinitionOptions(correctMeaning, pool)` — same pattern for vocabulary (4 options)
-- `formatSmartAnswer(answerStr, question)` — parses answer count hints embedded in question text
+- `formatSmartAnswer(answerStr, question)` — parses answer count hints embedded in question text; **imported from `src/utils/`**, not defined here, because the audio generator needs it too
 - `startQuiz()` — selects a random quiz pool (10 questions for 100-Q version, 20 for 128-Q version)
 
 ### Styling
@@ -137,6 +138,70 @@ CAP_LOCAL=1 npm run build && CAP_LOCAL=1 npx cap sync ios
 
 `patches/@capacitor-community+text-to-speech+8.0.1.patch` is applied automatically via the `postinstall` script (`patch-package`) after every `npm install`. If that plugin needs further changes, edit the copy under `node_modules/`, then regenerate the patch with `npx patch-package @capacitor-community/text-to-speech`.
 
+## Pre-rendered audio (how the app sounds human)
+
+Everything the app speaks is a **pre-rendered neural-voice recording**, not live
+text-to-speech. The device's own synthesizer is only the fallback. This is the
+single reason the app does not sound like a machine: on any device without an
+Enhanced/Premium voice downloaded, the OS offers nothing but its "compact"
+formant-synthesis tier, and no amount of voice-picking in the app can improve
+on voices that are not installed.
+
+All spoken content is fixed, so it is rendered once, offline, and shipped:
+
+```bash
+npm run audio                      # render only what changed
+npm run audio -- --force           # re-render everything
+npm run audio -- --plan-only       # count the work, render nothing
+npm run audio -- --only=speech     # or --only=interview
+```
+
+The generator (`scripts/generate-audio.mjs`) uses **kokoro-js**, an 82M-parameter
+neural TTS that runs locally — no API key, no per-play cost — and encodes to AAC
+with macOS's `afconvert` (so no ffmpeg dependency). Two sets come out:
+
+| Set | Voice(s) | Files | Manifest |
+|---|---|---|---|
+| `public/audio/speech/` | `af_heart` (female) | ~1,700, one per unique string | `src/data/speechAudio.json`, keyed by **the exact text spoken** |
+| `public/audio/interview/` | `am_michael` officer, `af_heart` applicant | 55, one per turn | `src/data/interviewAudio.json`, keyed by section id → turn index |
+
+Total ~35MB. The first run downloads the model (~330MB at fp32) to the Hugging
+Face cache; `KOKORO_DTYPE=q8` pulls ~86MB instead — faster, lower quality.
+
+### Rules that keep audio and text in step
+
+- **Editing any spoken data file means re-running `npm run audio`.** Files are
+  named after a hash of the text and voice, so reworded text simply has no
+  recording and falls back to live TTS. Stale files are pruned on the next run.
+- **Adding a `speakText` call site with new text?** Add that text to
+  `collectAppSpeech()` in the generator, or it will only ever be synthesized.
+- `src/utils/parseDialogue.js` and `src/utils/formatSmartAnswer.js` are imported
+  by **both** `App.jsx` and the generator. That is deliberate: the generator has
+  to produce a recording of the exact string the app will speak, and interview
+  recordings are addressed by turn index. Don't fork either one.
+- Manifests are written *before* rendering, so a half-finished run still builds
+  and runs — missing files just fall back to speech synthesis.
+
+### How playback works in `App.jsx`
+
+`speakText(text)` looks `text` up in the speech manifest and plays the file
+through a reused `<audio>` element, falling back to `speakSynthesized` when there
+is no recording, the file 404s, or autoplay is blocked.
+
+The manifest is ~100KB, so it is pulled in with a **module-scope `import()`** at
+the top of `App.jsx` rather than a static import (which would put it in the main
+bundle) or a `useEffect` (which would work, but a dynamic `import()` inside the
+component makes React's compiler-based lint rules bail out on the entire file,
+silently switching off every check in it — verified). Until it resolves,
+`speechManifest` is null and everything is simply spoken live. `speakDialogue(section, …)`
+does the same per turn against `interviewAudio`, and refuses the whole section's
+recordings if its file count no longer matches the parsed turn count.
+
+Elements are **reused, not recreated**: iOS unlocks the specific element a user
+gesture touched, so a fresh `new Audio()` per line would be blocked. The app's
+speed control is a speech-synthesis rate where 0.85 means "Normal", so recorded
+playback uses `playbackRate = audioSpeed / 0.85` with `preservesPitch`.
+
 ## Companion Print Workbook
 
 `book/` holds the print-on-demand companion workbook. Regenerate the manuscript from the live question/vocabulary data in `src/data/` with:
@@ -158,8 +223,9 @@ The site deploys to Netlify (`netlify.toml`): build command `npm run build`, pub
 
 Things in the tree that look load-bearing but aren't — don't build on them:
 
-- **`kokoro-js`** (dependency) and **`google-translate-api-x`** (devDependency) have zero references anywhere in `src/`, `scripts/`, or the root `.mjs` scripts. In particular, `kokoro-js` is *not* the TTS engine — speech is Web Speech API on web and the Capacitor `TextToSpeech` plugin on native, both dispatched from `speakText` in `App.jsx`.
-- **`src/hooks/`** is an empty directory. There are no custom hooks in this codebase; shared logic lives as functions inside `App.jsx` and is passed down as props.
+- **`google-translate-api-x`** (devDependency) has zero references anywhere in `src/`, `scripts/`, or the root `.mjs` scripts.
+- **`kokoro-js`** is a *build-time* dependency only. It renders the Mock Interview audio in `scripts/generate-interview-audio.mjs` and is never imported by `src/` — nothing ships it to the browser. Live speech everywhere else is still Web Speech API on web and the Capacitor `TextToSpeech` plugin on native, both dispatched from `speakText` in `App.jsx`.
+- **`src/hooks/`** is an empty directory. There are no custom hooks in this codebase; shared logic lives as functions inside `App.jsx` and is passed down as props. The exception is `src/utils/`, which holds the two pure functions the audio generator also needs (`parseDialogue`, `formatSmartAnswer`) — they live there so app and generator cannot drift apart, not as the start of a utils layer.
 - **`dist/`, `ios/App/App/public/`, and `android/app/src/main/assets/public/`** all contain built copies of the app. Editing them does nothing — they're regenerated by `npm run build` + `npx cap sync`.
 
 ## Related Docs

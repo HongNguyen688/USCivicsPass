@@ -40,6 +40,9 @@ import questions100 from './data/questions.json';       // 100 questions (2008 v
 import questions128 from './data/questions128.json';    // 128 questions (2020 version)
 import n400Questions from './data/n400Questions.json';  // N-400 form prep questions
 import mockInterview from './data/mockInterview.json';  // Mock interview script
+import interviewAudio from './data/interviewAudio.json'; // Pre-rendered interview audio (see below)
+import { parseDialogue } from './utils/parseDialogue';   // Shared with the audio generator
+import { formatSmartAnswer } from './utils/formatSmartAnswer'; // Shared with the audio generator
 import interviewTips from './data/interviewTips.json';  // Interview tips
 import readingSentences from './data/readingSentences.json';   // Sentences for reading test
 import writingSentences from './data/writingSentences.json';   // Sentences for writing test
@@ -154,26 +157,54 @@ const voiceQuality = (voice) => {
   return score;
 };
 
-// The Mock Interview is played back slower than the rest of the app: it is a
-// listening exercise, and the default study speed runs ahead of most learners.
-// Multiplying (rather than fixing) the rate keeps the app-wide speed control
-// meaningful — the interview simply stays slower than everything else.
+// The Mock Interview is acted out by two speakers, but at the app's normal
+// speed and pitch: the two voices are what separate the officer from the
+// applicant, so there is no need to slow the playback down or shift anyone's
+// pitch — both of which are what made it sound synthetic before.
 //
-// It is deliberately only a little slower: dropping a synthetic voice far below
-// its natural rate is itself a big part of what makes one sound robotic, so the
-// unhurried feel comes mostly from ANSWER_PAUSE_MS rather than from the rate.
-const MOCK_INTERVIEW_RATE_FACTOR = 0.9;
-const MOCK_INTERVIEW_MIN_RATE = 0.6;
-
 // Silence left after each officer question so the learner can answer out loud
 // before hearing the model answer.
 const ANSWER_PAUSE_MS = 3000;
 
-// Fallback pitches, used only when the device has no second usable voice.
-// Kept subtle — a wide pitch shift is exactly what makes a voice sound
-// synthetic, so this only nudges the two speakers apart.
-const OFFICER_PITCH = 0.94;
-const APPLICANT_PITCH = 1.06;
+// The Mock Interview plays pre-rendered audio rather than speaking through the
+// device synthesizer. Its script never changes, so every line was rendered once
+// by scripts/generate-interview-audio.mjs with a neural TTS and shipped under
+// public/audio/interview/ — that is the whole reason the interview sounds like
+// two people instead of like a machine. src/data/interviewAudio.json maps a
+// section id to its files, one per turn, in parseDialogue order.
+//
+// Live TTS is still the fallback: a missing file, a failed download, or a line
+// added to the script before the generator is re-run is simply spoken aloud.
+const INTERVIEW_AUDIO_DIR = '/audio/interview/';
+
+// The same treatment for the rest of the app. Every question, answer, sentence
+// and vocabulary word any module can pass to speakText was rendered in the same
+// woman's voice as the Mock Interview's applicant, and src/data/speechAudio.json
+// maps the exact text spoken to its file. Text with no recording — anything
+// added to the data files since the last generator run — is still spoken by the
+// device synthesizer, so nothing ever goes silent.
+const SPEECH_AUDIO_DIR = '/audio/speech/';
+
+// The text→file map for everything speakText can say. It is ~100KB and is not
+// needed until someone taps 🔊, so it is fetched as its own chunk instead of
+// riding in the main bundle — the first screen should not wait on it.
+//
+// Deliberately loaded here rather than in a useEffect: a dynamic import() inside
+// the component makes React's compiler-based lint rules bail out on this whole
+// file, silently switching off every check in it.
+//
+// Until it arrives (and if it never does) speechManifest stays null, which just
+// means speakText falls back to the device synthesizer.
+let speechManifest = null;
+import('./data/speechAudio.json')
+  .then((module) => { speechManifest = module.default; })
+  .catch(() => {});
+
+// The app's speed control is expressed as a speech-synthesis rate, where 0.85
+// is labelled "Normal". A recording is already at its natural pace, so that
+// same setting has to map to playbackRate 1.0 — Slower and Faster then land
+// either side of it.
+const NORMAL_SPEECH_RATE = 0.85;
 
 // ============================================================
 // THE MAIN APP COMPONENT
@@ -269,10 +300,10 @@ const App = () => {
   // A ref to the best available browser voice (chosen once on startup)
   const preferredVoiceRef = useRef(null);
 
-  // Two more voices, picked once on startup, so the Mock Interview can be
-  // acted out by two people instead of read by one: a man for the officer
-  // and a woman for the applicant. Either can stay null if the browser has
-  // no clearly gendered English voice — speakDialogue falls back to pitch.
+  // The Mock Interview is acted out by two speakers: a man's voice for the
+  // officer, a woman's for the applicant. Either can stay null if the browser
+  // offers no clearly gendered English voice, in which case both speakers fall
+  // back to the app's normal voice.
   const officerVoiceRef = useRef(null);
   const applicantVoiceRef = useRef(null);
 
@@ -280,6 +311,22 @@ const App = () => {
   // not by object, so the native equivalents are stored separately.
   const nativeOfficerVoiceRef = useRef(null);
   const nativeApplicantVoiceRef = useRef(null);
+
+  // One <audio> element, reused for every recorded line. iOS only lets audio
+  // play after a user gesture, and unlocks the specific element the gesture
+  // touched — so the element the play button starts is kept and re-pointed at
+  // each following line, rather than making a new one that iOS would block.
+  const dialogueAudioRef = useRef(null);
+
+  // Resolves the line currently playing. Stopping the interview has to settle
+  // it by hand: a paused element fires no 'ended' event, so without this the
+  // playback loop would sit waiting on a line that will never finish.
+  const dialogueAudioResolveRef = useRef(null);
+
+  // The element used by speakText, kept for the same reason as the one above:
+  // it is separate from the interview's so that stopping one cannot cut off the
+  // other, and reused so iOS keeps letting it play.
+  const speechAudioRef = useRef(null);
 
   // Every run of the Mock Interview gets an id. The playback loop is async and
   // sits through 3-second silences, so it checks this after each await: if the
@@ -478,6 +525,14 @@ const App = () => {
     // needs the run id bumped or it would resume talking on the next screen.
     dialogueRunIdRef.current += 1;
 
+    // Recordings have to be stopped by hand too — pausing the synthesizer does
+    // nothing to an <audio> element that is already playing. Both elements are
+    // paused through their refs here rather than through the helpers below,
+    // which are declared later in the component.
+    if (speechAudioRef.current) speechAudioRef.current.pause();
+    if (dialogueAudioRef.current) dialogueAudioRef.current.pause();
+    dialogueAudioResolveRef.current?.(false);
+
     if (Capacitor.isNativePlatform()) {
       // Native iOS/Android: use the Capacitor TTS plugin's stop method
       TextToSpeech.stop().catch(() => {}); // .catch(() => {}) silently ignores errors
@@ -501,7 +556,7 @@ const App = () => {
       const voices = window.speechSynthesis.getVoices();
       if (!voices.length) return; // Voices not loaded yet, try again when they are
 
-      // Best overall voice for everything outside the Mock Interview.
+      // The one voice used everywhere in the app, Mock Interview included.
       // voiceQuality returns -1 for the joke voices and for anything non-English,
       // so those can never win here.
       const usable = voices.filter((v) => voiceQuality(v) >= 0);
@@ -563,8 +618,9 @@ const App = () => {
         nativeOfficerVoiceRef.current = bestIndex(MALE_VOICES);
         nativeApplicantVoiceRef.current = bestIndex(FEMALE_VOICES);
       })
-      .catch(() => {}); // No voice list — speakDialogue falls back to pitch
+      .catch(() => {}); // No voice list — both speakers use the normal voice
   }, []);
+
 
 
   // ==========================================================
@@ -591,52 +647,51 @@ const App = () => {
     window.speechSynthesis.speak(utterance); // Start speaking!
   };
 
-  // parseDialogue: Splits a Mock Interview script into speaking turns.
-  //
-  // The scripts are plain text, one line per turn, like:
-  //   "Officer: What is your full legal name?"
-  //   "Applicant: Anh Thi Nguyen."
-  //   "Applicant (standing): Yes, I do."
-  //
-  // A line with no "Officer:"/"Applicant:" prefix is a continuation of the
-  // previous speaker (the oath in section 2 wraps onto its own line), so it is
-  // appended rather than treated as a new turn. Stage directions in brackets
-  // are kept for the screen but never spoken.
-  const parseDialogue = (text) => {
-    const turns = [];
+  // playRecordedLine: Plays one pre-rendered line of the Mock Interview.
+  // Resolves true once the line has finished, or false if there was nothing to
+  // play or it would not load — the caller then speaks that line with live TTS,
+  // so a missing or broken file costs quality, never silence.
+  const playRecordedLine = (file) =>
+    new Promise((resolve) => {
+      if (!file) { resolve(false); return; }
 
-    (text || '').split('\n').forEach((rawLine) => {
-      const line = rawLine.trim();
-      if (!line) return;
+      if (!dialogueAudioRef.current) dialogueAudioRef.current = new Audio();
+      const audio = dialogueAudioRef.current;
 
-      const match = line.match(/^(Officer|Applicant)\b([^:]*):\s*(.*)$/i);
-      if (match) {
-        turns.push({
-          speaker: match[1].toLowerCase(),      // 'officer' | 'applicant'
-          direction: match[2].trim(),           // e.g. "(standing)" — shown, not spoken
-          text: match[3].trim(),
-        });
-      } else if (turns.length) {
-        turns[turns.length - 1].text += ' ' + line;
-      } else {
-        turns.push({ speaker: 'officer', direction: '', text: line });
-      }
+      const done = (played) => {
+        audio.onended = null;
+        audio.onerror = null;
+        dialogueAudioResolveRef.current = null;
+        resolve(played);
+      };
+      dialogueAudioResolveRef.current = done;
+
+      audio.onended = () => done(true);
+      audio.onerror = () => done(false);   // 404, unsupported codec, offline
+      audio.src = INTERVIEW_AUDIO_DIR + file;
+
+      // The recording is already at a natural pace, so "Normal" must play it
+      // untouched. preservesPitch keeps Slower and Faster from sounding like a
+      // tape being dragged — the one thing that would undo the point of this.
+      audio.playbackRate = audioSpeedRef.current / NORMAL_SPEECH_RATE;
+      audio.preservesPitch = true;
+      audio.webkitPreservesPitch = true;  // Older iOS Safari spells it this way
+
+      // A rejected play() means autoplay was blocked; fall back rather than hang.
+      audio.play().catch(() => done(false));
     });
-
-    return turns.filter((turn) => turn.text);
-  };
 
   // speakOne: Speaks a single line and resolves when it has finished.
   // Everything else in the app fires speech and forgets about it; the Mock
   // Interview needs to know when a line is over so the next one can follow.
-  const speakOne = (text, { rate, pitch, voice, nativeVoice }) =>
+  const speakOne = (text, { voice, nativeVoice }) =>
     new Promise((resolve) => {
       if (Capacitor.isNativePlatform()) {
         TextToSpeech.speak({
           text,
           lang: 'en-US',
-          rate,
-          pitch,
+          rate: audioSpeedRef.current,
+          pitch: 1.0,
           volume: 1.0,
           category: 'ambient',
           ...(nativeVoice != null ? { voice: nativeVoice } : {}),
@@ -646,8 +701,8 @@ const App = () => {
       } else {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
-        utterance.rate = rate;
-        utterance.pitch = pitch;
+        utterance.rate = audioSpeedRef.current;
+        utterance.pitch = 1.0;
         utterance.volume = 1;
         if (voice) utterance.voice = voice;
 
@@ -666,6 +721,12 @@ const App = () => {
   // every await, so a run that is mid-pause exits at its next checkpoint.
   const stopDialogue = () => {
     dialogueRunIdRef.current += 1;
+
+    // Stop any recorded line, and settle its promise so the loop it is inside
+    // can reach its next cancellation checkpoint and exit.
+    if (dialogueAudioRef.current) dialogueAudioRef.current.pause();
+    dialogueAudioResolveRef.current?.(false);
+
     if (Capacitor.isNativePlatform()) {
       TextToSpeech.stop().catch(() => {});
     } else {
@@ -676,28 +737,35 @@ const App = () => {
 
   // speakDialogue: Plays a Mock Interview section as a two-person conversation.
   //
-  //   - the officer is read by a man's voice, the applicant by a woman's
-  //   - it runs slower than the rest of the app (MOCK_INTERVIEW_RATE_FACTOR)
+  //   - each line plays as pre-rendered neural-voice audio where we have it,
+  //     and is spoken by the device synthesizer where we do not
+  //   - the officer is a man's voice, the applicant a woman's, either way
   //   - after each officer question it goes quiet for ANSWER_PAUSE_MS so the
   //     learner can answer out loud before the model answer is played
   //
+  // `section` is an entry from mockInterview.json: its id finds the recordings,
+  // its text is the script itself.
+  //
   // onTurnChange(index, phase) reports progress so the screen can highlight the
   // line being spoken; it is called with (null, null) when playback finishes.
-  const speakDialogue = async (text, onTurnChange) => {
+  const speakDialogue = async (section, onTurnChange) => {
     stopDialogue();                                   // Clear any previous run
     const runId = dialogueRunIdRef.current;           // Claim this run
     const isCancelled = () => dialogueRunIdRef.current !== runId;
 
-    const turns = parseDialogue(text);
+    const turns = parseDialogue(section?.text);
     if (!turns.length) return;
 
-    const rate = Math.max(
-      MOCK_INTERVIEW_MIN_RATE,
-      audioSpeedRef.current * MOCK_INTERVIEW_RATE_FACTOR
-    );
+    // The recordings are addressed by turn index, so they are only safe to use
+    // while there are exactly as many as the script now parses to. Edit the
+    // script without re-running the generator and the whole section falls back
+    // to live speech, rather than playing the wrong line against the wrong text.
+    const files = interviewAudio[String(section?.id)];
+    const recordings = files?.length === turns.length ? files : null;
 
-    // Only fall back to pitch when we could not cast two different voices,
-    // so good neural voices are left sounding natural wherever they exist.
+    // Two speakers only where the device actually has two different voices to
+    // give them. Where it does not, everyone is read in the app's normal voice
+    // — a pitch-shifted stand-in sounds more synthetic than a single voice does.
     const castByVoice = Capacitor.isNativePlatform()
       ? nativeOfficerVoiceRef.current != null &&
         nativeApplicantVoiceRef.current != null &&
@@ -706,11 +774,9 @@ const App = () => {
         Boolean(applicantVoiceRef.current) &&
         officerVoiceRef.current !== applicantVoiceRef.current;
 
-    const settingsFor = (speaker) => {
+    const voicesFor = (speaker) => {
       const isOfficer = speaker === 'officer';
       return {
-        rate,
-        pitch: castByVoice ? 1.0 : (isOfficer ? OFFICER_PITCH : APPLICANT_PITCH),
         voice: castByVoice
           ? (isOfficer ? officerVoiceRef.current : applicantVoiceRef.current)
           : preferredVoiceRef.current,
@@ -727,10 +793,16 @@ const App = () => {
       if (isCancelled()) return;
 
       onTurnChange?.(i, 'speaking');
-      // Chrome sometimes leaves synthesis stuck in a paused state between lines.
-      if (!Capacitor.isNativePlatform()) window.speechSynthesis.resume();
-      await speakOne(turns[i].text, settingsFor(turns[i].speaker));
+
+      const played = await playRecordedLine(recordings?.[i]);
       if (isCancelled()) return;
+
+      if (!played) {
+        // Chrome sometimes leaves synthesis stuck in a paused state between lines.
+        if (!Capacitor.isNativePlatform()) window.speechSynthesis.resume();
+        await speakOne(turns[i].text, voicesFor(turns[i].speaker));
+        if (isCancelled()) return;
+      }
 
       // Leave room to answer, but only where an answer actually follows —
       // back-to-back officer lines run on, as they would in a real interview.
@@ -744,11 +816,44 @@ const App = () => {
     onTurnChange?.(null, null);
   };
 
-  // speakText: The main "speak this text" function used by all modules.
-  // It automatically chooses native TTS (on phone) or browser TTS (on web).
-  const speakText = (text) => {
-    if (!text) return; // Don't try to speak empty text
+  // stopSpeechAudio: Silences a pre-rendered line started by speakText.
+  // Navigating away or tapping a different 🔊 has to stop the recording as well
+  // as the synthesizer, or two voices end up talking over each other.
+  const stopSpeechAudio = () => {
+    if (!speechAudioRef.current) return;
+    speechAudioRef.current.pause();
+    speechAudioRef.current.currentTime = 0;
+  };
 
+  // playRecordedText: Plays the recording of `text` if we have one.
+  // Returns true if playback started, false if there is no recording for this
+  // exact string — the caller then falls back to the device synthesizer.
+  const playRecordedText = (text) => {
+    const file = speechManifest?.[text] || speechManifest?.[text.trim()];
+    if (!file) return false;   // Not recorded, or the manifest has yet to load
+
+    if (!speechAudioRef.current) speechAudioRef.current = new Audio();
+    const audio = speechAudioRef.current;
+
+    // A file that 404s or will not decode falls back to live speech, so a
+    // missing recording still says something rather than nothing.
+    audio.onerror = () => { audio.onerror = null; speakSynthesized(text); };
+    audio.src = SPEECH_AUDIO_DIR + file;
+
+    // The recording is at a natural pace, so the app's "Normal" (0.85) has to
+    // play it untouched; preservesPitch keeps Slower/Faster from chipmunking.
+    audio.playbackRate = audioSpeedRef.current / NORMAL_SPEECH_RATE;
+    audio.preservesPitch = true;
+    audio.webkitPreservesPitch = true;  // Older iOS Safari spells it this way
+
+    audio.play().catch(() => speakSynthesized(text)); // Autoplay blocked
+    return true;
+  };
+
+  // speakSynthesized: The old path — the device's own text-to-speech.
+  // Now the fallback rather than the norm: it is what speaks anything added to
+  // the data files since the last `npm run audio`.
+  const speakSynthesized = (text) => {
     if (Capacitor.isNativePlatform()) {
       // On iPhone/Android: use the device's high-quality neural voice (like Siri)
       TextToSpeech.stop().catch(() => {});
@@ -764,6 +869,24 @@ const App = () => {
       // On a web browser: use the browser's built-in speech
       speakBrowser(text);
     }
+  };
+
+  // speakText: The main "speak this text" function used by all modules.
+  // Plays the pre-rendered recording where there is one — that is what makes
+  // the app sound like a person rather than a synthesizer — and speaks it live
+  // where there is not.
+  const speakText = (text) => {
+    if (!text) return; // Don't try to speak empty text
+
+    // Whatever is already talking stops first, in either voice.
+    stopSpeechAudio();
+    if (Capacitor.isNativePlatform()) {
+      TextToSpeech.stop().catch(() => {});
+    } else {
+      window.speechSynthesis.cancel();
+    }
+
+    if (!playRecordedText(text)) speakSynthesized(text);
   };
 
   // --- QUIZ HELPERS ---
@@ -934,36 +1057,6 @@ const App = () => {
     }
   };
 
-  // formatSmartAnswer: Intelligently formats the answer for flashcards.
-  // Some questions ask "Name THREE branches..." — this function picks
-  // the right number of answers from the semicolon-separated list.
-  // Example input: "executive; legislative; judicial"
-  // If question says "three", returns: "executive, legislative, and judicial"
-  const formatSmartAnswer = (answerStr, question) => {
-    // Detect how many answers the question requires
-    const getCount = (q) => {
-      const lowerCaseQ = q.toLowerCase();
-      if (lowerCaseQ.includes('three') || lowerCaseQ.includes('3 ') || lowerCaseQ.includes(' 3')) return 3;
-      if (lowerCaseQ.includes('two') || lowerCaseQ.includes('2 ') || lowerCaseQ.includes(' 2')) return 2;
-      return 1; // Default: just show 1 answer
-    };
-
-    const count = getCount(question);
-
-    // Split "answer1; answer2; answer3" into ["answer1", "answer2", "answer3"]
-    const parts = answerStr.split(';').map(p => p.trim());
-
-    if (parts.length <= 1) return parts[0]; // Only one answer, return it directly
-
-    // Take only as many answers as the question requires
-    const selected = parts.slice(0, count);
-
-    // Format with proper English grammar:
-    if (selected.length === 1) return selected[0];
-    if (selected.length === 2) return `${selected[0]} and ${selected[1]}`;
-    // 3 or more: "a, b, and c"
-    return `${selected.slice(0, -1).join(', ')}, and ${selected[selected.length - 1]}`;
-  };
 
 
   // ==========================================================

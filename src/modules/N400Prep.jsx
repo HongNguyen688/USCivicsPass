@@ -82,7 +82,7 @@ const N400Prep = ({
       return;
     }
     setPlaying({ sectionId: item.id, turn: 0, phase: 'speaking' });
-    speakDialogue(item.text, (turn, phase) => {
+    speakDialogue(item, (turn, phase) => {
       setPlaying(turn === null
         ? { sectionId: null, turn: null, phase: null }
         : { sectionId: item.id, turn, phase });
@@ -150,9 +150,10 @@ const N400Prep = ({
                 <div key={item.id} className="script-section glass">
                   <div className="script-header">
                     <h4 className="script-section-title">{item.section}</h4>
-                    {/* Plays the section as a conversation: a man's voice for the
-                        officer, a woman's for the applicant, with a pause after
-                        each question so you can answer out loud. */}
+                    {/* Plays the section as a conversation — pre-rendered
+                        neural-voice audio, a man for the officer and a woman
+                        for the applicant, with a pause after each question so
+                        you can answer out loud. */}
                     <button
                       className={`audio-btn-small ${isPlaying ? 'is-playing' : ''}`}
                       onClick={() => toggleSection(item)}
